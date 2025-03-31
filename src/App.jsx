@@ -42,4 +42,3 @@ function App() {
 }
 
 export default App;
-<Route path="/new-resolutions" element={<NewResolutions />} />
