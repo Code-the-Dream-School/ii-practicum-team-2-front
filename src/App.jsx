@@ -7,6 +7,7 @@ import SignInForm from "./SignInForm";
 import AddResolutionForm from "./AddResolutionForm";
 // import NavbarTopLoggedIn from "./components/newResopage/NavbarTopLoggedIn";
 import NewResolutions from "./components/newResopage/NewResolutions";
+import DailyQuests from './pages/DailyQuests'; 
 
 const URL = "http://localhost:8000/api/v1/";
 
@@ -35,6 +36,7 @@ function App() {
           <Route path="/signin" element={<SignInForm />} />
           <Route path="/add-resolution" element={<AddResolutionForm />} />
           <Route path="/new-resolutions" element={<NewResolutions />} />
+          <Route path="/daily-quests" element={<DailyQuests />} />
         </Routes>
       </div>
     </Router>
