@@ -38,7 +38,7 @@ const DailyQuests = () => {
           id: 3,
           title: "Read 1 page",
           icon: "📘",
-          frequency: "Tuesdays, Thursdays, Sundays",
+          frequency: "Daily",
           completed: {},
         },
         {
