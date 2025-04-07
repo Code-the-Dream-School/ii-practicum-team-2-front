@@ -1,14 +1,20 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import NavbarTopLoggedIn from "./NavbarTopLoggedIn";
 import CardComponent from "./CardComponent";
 import readBooksIcon from "../../assets/readBooksIcon.png";
 
 function NewResolutions() {
+  const navigate = useNavigate();
+
+  const handleCardClick = (title) => {
+    navigate("/add-resolution", { state: { resolutionTitle: title } });
+  };
+
   return (
     <div>
       <NavbarTopLoggedIn />
 
-      {/* Main container with grid layout */}
       <div className="min-h-screen bg-gray-100 px-6 py-6">
         <div className="max-w-screen-xl mx-auto px-6 mb-8">
           <div className="flex items-center mb-4">
@@ -36,32 +42,40 @@ function NewResolutions() {
         {/* Grid container */}
         <div className="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {/* Card 1 */}
-          <CardComponent
-            title="Read more books"
-            content="Trade mindless scrolling on social media for the enjoyment of immersing yourself in the pages of a great book."
-            imageUrl={readBooksIcon}
-          />
+          <div onClick={() => handleCardClick("Read more books")}>
+            <CardComponent
+              title="Read more books"
+              content="Trade mindless scrolling on social media for the enjoyment of immersing yourself in the pages of a great book."
+              imageUrl={readBooksIcon}
+            />
+          </div>
 
           {/* Card 2 */}
-          <CardComponent
-            title="Exercise Regularly"
-            content="Swap the couch for a workout and make fitness a part of your daily routine."
-            imageUrl={readBooksIcon}
-          />
+          <div onClick={() => handleCardClick("Exercise Regularly")}>
+            <CardComponent
+              title="Exercise Regularly"
+              content="Swap the couch for a workout and make fitness a part of your daily routine."
+              imageUrl={readBooksIcon}
+            />
+          </div>
 
           {/* Card 3 */}
-          <CardComponent
-            title="Eat Healthier"
-            content="Fuel your body with nutritious food for better health and energy."
-            imageUrl={readBooksIcon}
-          />
+          <div onClick={() => handleCardClick("Eat Healthier")}>
+            <CardComponent
+              title="Eat Healthier"
+              content="Fuel your body with nutritious food for better health and energy."
+              imageUrl={readBooksIcon}
+            />
+          </div>
 
           {/* Card 4 */}
-          <CardComponent
-            title="Save Money"
-            content="Start budgeting, cutting unnecessary expenses, and building your savings."
-            imageUrl={readBooksIcon}
-          />
+          <div onClick={() => handleCardClick("Save Money")}>
+            <CardComponent
+              title="Save Money"
+              content="Start budgeting, cutting unnecessary expenses, and building your savings."
+              imageUrl={readBooksIcon}
+            />
+          </div>
         </div>
       </div>
     </div>

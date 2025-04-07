@@ -7,10 +7,12 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "tailwind:build": "postcss ./src/assets/css/tailwind.css -o ./dist/style.css",
+    "tailwind:watch": "npx tailwindcss -i ./src/assets/css/tailwind.css -o ./dist/style.css --watch"
   },
   "dependencies": {
-    "@headlessui/react": "^2.2.0",
+    "@headlessui/react": "^2.2.1",
     "@heroicons/react": "^2.2.0",
     "axios": "^1.6.7",
     "date-fns": "^4.1.0",
