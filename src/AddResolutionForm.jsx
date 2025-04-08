@@ -126,7 +126,8 @@ const AddResolutionForm = () => {
             <h3 className="text-lg font-semibold mb-2">Your Resolutions</h3>
             {resolutions.map((resolution, index) => (
               <div key={index} className="mb-4">
-                <p className="text-base font-medium">• {resolution.title}</p>
+                <p className="text-base font-medium">{resolution.title}</p>
+                
                 {resolution.booksRead && (
                   <p className="text-sm">Books Read: {resolution.booksRead}</p>
                 )}

@@ -1,9 +1,20 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import NavbarTopLoggedIn from "./NavbarTopLoggedIn";
 import CardComponent from "./CardComponent";
 import readBooksIcon from "../../assets/readBooksIcon.png";
 
 function NewResolutions() {
+  const navigate = useNavigate();
+
+  const handleCardClick = (title) => {
+    if (title === "Read more books") {
+      navigate("/add-resolution");
+    } else {
+      navigate("/daily-quests");
+    }
+  };
+
   return (
     <div>
       <NavbarTopLoggedIn />
@@ -40,6 +51,7 @@ function NewResolutions() {
             title="Read more books"
             content="Trade mindless scrolling on social media for the enjoyment of immersing yourself in the pages of a great book."
             imageUrl={readBooksIcon}
+            onClick={() => handleCardClick("Read more books")}
           />
 
           {/* Card 2 */}
