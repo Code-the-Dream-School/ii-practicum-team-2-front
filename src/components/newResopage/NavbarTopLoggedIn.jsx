@@ -10,10 +10,10 @@ import {
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const navigation = [
-  { name: "Daily Quests", href: "#", current: false },
+  { name: "Daily Quests", href: "#", current: true },
   { name: "My Goals", href: "#", current: false },
   { name: "New Resolutions", href: "#", current: false },
-  { name: "Calendar", href: "#", current: false },
+  // { name: "Calendar", href: "#", current: false },
 ];
 
 function classNames(...classes) {

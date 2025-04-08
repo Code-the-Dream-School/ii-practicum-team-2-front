@@ -1,8 +1,17 @@
 import React from "react";
+import "./CardComponent.css"; 
 
-const CardComponent = ({ title, content, imageUrl }) => {
+const CardComponent = ({ title, content, imageUrl, onClick }) => {
   return (
-    <div className="max-w-xs rounded overflow-hidden shadow-lg bg-white">
+    <div
+      className="card max-w-xs rounded overflow-hidden shadow-lg bg-white"
+      onClick={onClick}
+      role="button"
+      tabIndex="0"
+      onKeyDown={(e) => {
+        if (e.key === "Enter") onClick();
+      }}
+    >
       {/* Image */}
       {imageUrl && (
         <img
@@ -21,11 +30,11 @@ const CardComponent = ({ title, content, imageUrl }) => {
       </div>
 
       {/* CTA Button */}
-      <div className="flex justify-start px-6">
+      {/* <div className="flex justify-start px-6">
         <button className="px-3 py-1.5 font-semibold bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
           Get Started
         </button>
-      </div>
+      </div> */}
 
       {/* Tags/Chips */}
       <div className="px-6 pt-4 pb-2">

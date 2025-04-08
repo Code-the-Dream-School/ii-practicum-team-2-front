@@ -1,0 +1,12 @@
+.card {
+  background-color: #fff;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  border-top: 8px solid rgb(68, 151, 172);
+}
+
+.card:hover {
+  /* background-color: #02658b; 
+    color: pink; */
+  border-top: 8px solid rgb(91, 68, 172);
+  transform: scale(1.05);
+}
