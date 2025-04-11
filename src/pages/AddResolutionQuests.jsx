@@ -54,7 +54,7 @@ function AddResolutionQuests() {
 
   return (
     <div className="min-h-screen bg-white p-6 flex items-start justify-end">
-      <div className="bg-white rounded-2xl shadow-md p-6 w-full max-w-md mx-auto">
+      <div className="bg-white rounded-2xl shadow-md p-6 w-full max-w-md min-w-[350px] mx-auto">
         <h1 className="text-2xl font-bold mb-6 text-center leading-tight">
           Add daily quests to
           <br />
@@ -67,6 +67,11 @@ function AddResolutionQuests() {
             Read more books
           </h2>
           <div className="space-y-2 mb-4">
+          {quests.length === 0 && (
+              <p className="text-sm text-gray-400 italic my-8">
+                No quests yet — click the + button to get started!
+              </p>
+            )}
             <ul className="space-y-2">
               {quests.map((quest) => (
                 <li

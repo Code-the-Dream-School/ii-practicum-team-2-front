@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import AddResolutionQuests from './pages/AddResoluionQuests';
+import AddResolutionQuests from './pages/AddResolutionQuests';
 
 const AddResolutionForm = () => {
   // State to store the list of resolutions
