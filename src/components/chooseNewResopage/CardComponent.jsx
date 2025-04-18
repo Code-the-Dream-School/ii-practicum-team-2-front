@@ -5,6 +5,7 @@ const CardComponent = ({ title, content, imageUrl, onClick }) => {
   return (
     <div
       className="card max-w-xs rounded overflow-hidden shadow-lg bg-white"
+      // style={{ maxWidth: '250px' }}
       onClick={onClick}
       role="button"
       tabIndex="0"
@@ -15,7 +16,7 @@ const CardComponent = ({ title, content, imageUrl, onClick }) => {
       {/* Image */}
       {imageUrl && (
         <img
-          className="w-full h-48 object-cover"
+          className="w-full h-40 object-cover"
           src={imageUrl}
           alt="Card Image"
         />
