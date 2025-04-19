@@ -11,19 +11,26 @@ const ReadBooksForm = ({ setBookResolutions }) => {
   });
 
   const [successMessage, setSuccessMessage] = useState("");
-  const navigate = useNavigate(); 
-  
+  const navigate = useNavigate();
+
   useEffect(() => {
     const savedResolutions =
       JSON.parse(localStorage.getItem("bookResolutions")) || [];
     if (savedResolutions.length > 0) {
-      setFormData(savedResolutions[0]); // Load the single resolution into the form
+      setFormData(savedResolutions[0]); // Loads the single resolution into the form
     }
     setBookResolutions(savedResolutions);
   }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    //prevents negative values for booksGoal and booksRead
+    if ((name === "booksGoal" || name === "booksRead") && Number(value) < 0) {
+      alert("Books read cannot be negative.");
+      return;
+    }
+
     setFormData({ ...formData, [name]: value });
   };
 
@@ -69,6 +76,7 @@ const ReadBooksForm = ({ setBookResolutions }) => {
               value={formData.booksGoal}
               onChange={handleChange}
               className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              min="0"
               required
             />
           </div>
@@ -82,6 +90,8 @@ const ReadBooksForm = ({ setBookResolutions }) => {
               value={formData.booksRead}
               onChange={handleChange}
               className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              min="0"
+              // required
             />
           </div>
           <div>
@@ -94,18 +104,21 @@ const ReadBooksForm = ({ setBookResolutions }) => {
               value={formData.currentlyReading}
               onChange={handleChange}
               className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              maxLength={100}
             />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Do you have any specific books that you plan to read?
             </label>
-            <input
-              type="text"
+            <textarea
+              // type="text"
               name="plannedBooks"
               value={formData.plannedBooks}
               onChange={handleChange}
               className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              maxLength={500}
+              placeholder="ex. 'The Great Gatsby', 'Lord of the Rings', 'Great Expectations'"
             />
           </div>
           <div>
@@ -118,6 +131,8 @@ const ReadBooksForm = ({ setBookResolutions }) => {
               onChange={handleChange}
               className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               rows="3"
+              maxLength={500}
+              placeholder="ex. 'I want to read more books to expand my knowledge on different cultures and to broaden my perspective'', 'My goal is to read more books to improve my vocabulary'"
             />
           </div>
           <div className="flex justify-center">
@@ -131,6 +146,7 @@ const ReadBooksForm = ({ setBookResolutions }) => {
 
           <div className="mt-4 flex justify-center">
             <button
+              type="button"
               className="w-40 bg-green-600 text-white p-2 rounded-full hover:bg-green-700 transition"
               onClick={() => navigate("/my-resolutions")}
             >
@@ -164,4 +180,3 @@ const ReadBooksForm = ({ setBookResolutions }) => {
 };
 
 export default ReadBooksForm;
-

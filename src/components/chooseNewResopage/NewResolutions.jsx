@@ -20,7 +20,6 @@ function NewResolutions() {
       <div className="relative z-10">
         <NavbarTopnewResoLoggedIn />
       </div>
-      
 
       {/* Main container with grid layout */}
       <div className="min-h-screen bg-gray-100 px-6 py-6">
@@ -55,7 +54,6 @@ function NewResolutions() {
             content="Trade mindless scrolling on social media for the enjoyment of immersing yourself in the pages of a great book."
             imageUrl={readBooksIcon}
             onClick={() => handleCardClick("Read more books")}
-            
           />
 
           {/* Card 2 */}

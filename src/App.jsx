@@ -19,9 +19,11 @@ function App() {
   const [resolutions, setResolutions] = useState([]);
 
   useEffect(() => {
+    
     (async () => {
       const myData = await getAllData(URL);
       setMessage(myData.data);
+
     })();
 
     return () => {
@@ -29,13 +31,11 @@ function App() {
     };
   }, []);
 
-
- 
   return (
     <Router>
       <div>
         {/* <NavbarTopLoggedIn /> */}
-        
+
         {message && <p>{message}</p>}
         <Routes>
           <Route path="/" element={<Home />} />
@@ -44,7 +44,7 @@ function App() {
           <Route path="/add-resolution" element={<AddResolutionForm />} />
           <Route path="/new-resolutions" element={<NewResolutions />} />
           <Route path="/daily-quests" element={<DailyQuests />} />
-          
+
           <Route
             path="/my-resolutions"
             element={<MyResolutions resolutions={resolutions} />}
