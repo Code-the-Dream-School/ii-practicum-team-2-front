@@ -132,7 +132,7 @@ const ReadBooksForm = ({ setBookResolutions }) => {
               className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               rows="3"
               maxLength={500}
-              placeholder="ex. 'I want to read more books to expand my knowledge on different cultures and to broaden my perspective'', 'My goal is to read more books to improve my vocabulary'"
+              placeholder="ex. 'I want to read more books to improve my vocabulary and expand my knowledge on different subjects'"
             />
           </div>
           <div className="flex justify-center">
