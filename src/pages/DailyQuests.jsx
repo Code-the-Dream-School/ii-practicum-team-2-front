@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { format, addDays } from "date-fns";
 import QuestModal from "../components/QuestModal";
-import NavbarTopLoggedIn from "../components/newResopage/NavbarTopLoggedIn";
+import NavbarTopLoggedIn from "../components/chooseNewResopage/NavbarTopLoggedIn";
 
 const daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
@@ -86,8 +86,8 @@ const DailyQuests = () => {
                 [dateKey]: !q.completed?.[dateKey],
               },
             }
-          : q,
-      ),
+          : q
+      )
     );
   };
 
@@ -126,7 +126,7 @@ const DailyQuests = () => {
   const handleSave = (updatedQuest) => {
     if (selectedQuest) {
       setQuests((prev) =>
-        prev.map((q) => (q.id === selectedQuest.id ? updatedQuest : q)),
+        prev.map((q) => (q.id === selectedQuest.id ? updatedQuest : q))
       );
     } else {
       setQuests((prev) => [
@@ -205,7 +205,7 @@ const DailyQuests = () => {
 
                     const selectedDayName = format(
                       selectedDay,
-                      "EEEE",
+                      "EEEE"
                     ).toLowerCase();
 
                     const freqDays = q.frequency
@@ -349,7 +349,7 @@ const DailyQuests = () => {
                     };
                     setQuests((prev) => [...prev, newQuest]);
                     setSuggestions((prev) =>
-                      prev.filter((_, i) => i !== index),
+                      prev.filter((_, i) => i !== index)
                     );
                   }}
                   className="w-5 h-5 flex items-center justify-center rounded-[6px] border-2 border-[#3c50e0] bg-[#3c50e0] text-white hover:bg-white hover:text-[#3c50e0] transition-colors leading-none pb-[2px]"

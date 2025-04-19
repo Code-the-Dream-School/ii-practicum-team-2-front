@@ -7,6 +7,6 @@
 .card:hover {
   /* background-color: #02658b; 
     color: pink; */
-  border-top: 8px solid rgb(91, 68, 172);
+  border-top: 8px solid #3c50e0;
   transform: scale(1.05);
 }
