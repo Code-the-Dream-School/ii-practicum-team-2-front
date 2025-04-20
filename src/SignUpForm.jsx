@@ -1,6 +1,6 @@
 import React from 'react';
 import shape1 from './assets/shape1.png';
-
+//Register
 const SignUpForm = () => {
   return (
     <div className="fixed inset-0 flex items-center justify-center p-4 bg-white z-10">
