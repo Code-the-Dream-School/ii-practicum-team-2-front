@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import NavbarTopLoggedIn from "./NavbarTopLoggedIn";
+import NavbarTopnewResoLoggedIn from "./NavbarTopnewResoLoggedIn";
 import CardComponent from "./CardComponent";
 import readBooksIcon from "../../assets/readBooksIcon.png";
 
@@ -9,7 +9,7 @@ function NewResolutions() {
 
   const handleCardClick = (title) => {
     if (title === "Read more books") {
-      navigate("/add-resolution");
+      navigate("/read-books-resolution-goals");
     } else {
       navigate("/daily-quests");
     }
@@ -17,7 +17,9 @@ function NewResolutions() {
 
   return (
     <div>
-      <NavbarTopLoggedIn />
+      <div className="relative z-10">
+        <NavbarTopnewResoLoggedIn />
+      </div>
 
       {/* Main container with grid layout */}
       <div className="min-h-screen bg-gray-100 px-6 py-6">
@@ -32,7 +34,7 @@ function NewResolutions() {
             <img
               src="/src/assets/fireworks1.png"
               alt="Firework"
-              className="absolute top-[60px] w-24 h-24 z-0 ml-80"
+              className="absolute top-[50px] w-24 h-24 z-1 ml-80"
             />
           </div>
 
@@ -59,6 +61,7 @@ function NewResolutions() {
             title="Exercise Regularly"
             content="Swap the couch for a workout and make fitness a part of your daily routine."
             imageUrl={readBooksIcon}
+            onClick={() => handleCardClick("Read more books")}
           />
 
           {/* Card 3 */}
