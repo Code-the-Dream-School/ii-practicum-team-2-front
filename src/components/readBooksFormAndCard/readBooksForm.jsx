@@ -55,8 +55,8 @@ const ReadBooksForm = ({ setBookResolutions }) => {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center p-4 bg-white z-10">
-      <div className="bg-white rounded-[25px] border border-gray-300 shadow-lg p-5 pb-5 w-[400px] max-h-screen overflow-y-auto">
+    // <div className="fixed inset-0 flex items-center justify-center p-4 bg-white z-10">
+      <div className="bg-[#EDEDF4] rounded-[25px] border border-gray-300 shadow-lg p-5 pb-5 w-[400px] max-h-screen overflow-y-auto">
         <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">
           Read more books resolution
         </h2>
@@ -144,7 +144,7 @@ const ReadBooksForm = ({ setBookResolutions }) => {
             </button>
           </div>
 
-          <div className="mt-4 flex justify-center">
+          {/* <div className="mt-4 flex justify-center">
             <button
               type="button"
               className="w-40 bg-green-600 text-white p-2 rounded-full hover:bg-green-700 transition"
@@ -152,7 +152,7 @@ const ReadBooksForm = ({ setBookResolutions }) => {
             >
               Go to My Resolutions
             </button>
-          </div>
+          </div> */}
         </form>
         <div>
           <h3 className="text-xl font-bold mt-4">Your Current Resolution</h3>
@@ -175,7 +175,7 @@ const ReadBooksForm = ({ setBookResolutions }) => {
           </div>
         </div>
       </div>
-    </div>
+    // </div>
   );
 };
 

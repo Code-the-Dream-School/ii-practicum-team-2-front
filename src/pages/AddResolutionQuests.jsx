@@ -53,8 +53,8 @@ function AddResolutionQuests() {
   };
 
   return (
-    <div className="min-h-screen bg-white p-6 flex items-start justify-end">
-      <div className="bg-white rounded-2xl shadow-md p-6 w-full max-w-md min-w-[350px] mx-auto">
+    // <div className="min-h-screen bg-white p-6 flex items-start justify-end">
+      <div className="bg-[#EDEDF4] rounded-2xl shadow-md p-6 w-full max-w-md min-w-[350px] mx-auto">
         <h1 className="text-2xl font-bold mb-6 text-center leading-tight">
           Add daily quests to
           <br />
@@ -191,7 +191,7 @@ function AddResolutionQuests() {
           setIcon={setIcon}
         />
       </div>
-    </div>
+    // </div>
   );
 }
 

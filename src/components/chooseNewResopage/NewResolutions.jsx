@@ -9,7 +9,7 @@ function NewResolutions() {
 
   const handleCardClick = (title) => {
     if (title === "Read more books") {
-      navigate("/read-books");
+      navigate("/read-books-resolution-goals");
     } else {
       navigate("/daily-quests");
     }
@@ -61,6 +61,7 @@ function NewResolutions() {
             title="Exercise Regularly"
             content="Swap the couch for a workout and make fitness a part of your daily routine."
             imageUrl={readBooksIcon}
+            onClick={() => handleCardClick("Read more books")}
           />
 
           {/* Card 3 */}
