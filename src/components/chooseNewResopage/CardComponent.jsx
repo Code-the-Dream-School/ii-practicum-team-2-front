@@ -1,11 +1,11 @@
 import React from "react";
-import "./CardComponent.css"; 
+import "./CardComponent.css";
 
 const CardComponent = ({ title, content, imageUrl, onClick }) => {
   return (
     <div
-      className="card max-w-xs rounded overflow-hidden shadow-lg bg-white"
-      // style={{ maxWidth: '250px' }}
+      className="newResolutionCard max-w-xs rounded overflow-hidden shadow-lg bg-white"
+      style={{ maxWidth: "250px" }}
       onClick={onClick}
       role="button"
       tabIndex="0"
@@ -24,7 +24,7 @@ const CardComponent = ({ title, content, imageUrl, onClick }) => {
 
       <div className="px-6 py-4">
         {/* Title */}
-        <div className="font-bold text-2xl mb-2">{title}</div>
+        <div className="title font-bold text-2xl mb-2">{title}</div>
 
         {/* Content */}
         <p className="text-gray-700 text-base">{content}</p>
@@ -38,7 +38,7 @@ const CardComponent = ({ title, content, imageUrl, onClick }) => {
       </div> */}
 
       {/* Tags/Chips */}
-      <div className="px-6 pt-4 pb-2">
+      {/* <div className="px-6 pt-4 pb-2">
         <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
           #books
         </span>
@@ -48,7 +48,7 @@ const CardComponent = ({ title, content, imageUrl, onClick }) => {
         <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
           #lifestyle
         </span>
-      </div>
+      </div> */}
     </div>
   );
 };
