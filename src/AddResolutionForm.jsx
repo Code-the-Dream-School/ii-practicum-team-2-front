@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import AddResolutionQuests from "./pages/AddResolutionQuests";
 // import ReadBooksCard from "./components/myResolutionsPage/readBooksCard";
 
 const AddResolutionForm = () => {
@@ -164,7 +163,6 @@ const AddResolutionForm = () => {
         )}
       </div>
 
-      <AddResolutionQuests />
     </div>
   );
 };

@@ -8,7 +8,7 @@ import SignInForm from "./SignInForm";
 import AddResolutionForm from "./AddResolutionForm";
 // import NavbarTopLoggedIn from "./components/newResopage/NavbarTopLoggedIn";
 import NewResolutions from "./components/chooseNewResopage/NewResolutions";
-import DailyQuests from "./pages/DailyQuests";
+import DailyQuests from "./components/dailyQuestsPage/DailyQuests"
 import MyResolutions from "./components/myResolutionsPage/MyResolutions";
 import ReadBooksForm from "./components/readBooksFormAndCard/readBooksForm";
 import ReadBooksResolutionGoalsInput from "./components/readBooksResolutionGoalsInputPage/ReadBooksResolutionGoalsInput";
