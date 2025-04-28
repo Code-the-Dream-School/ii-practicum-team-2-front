@@ -1,49 +1,66 @@
-// src/App.jsx
-import React, { useState, useEffect, Component } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Toaster } from "react-hot-toast";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { getAllData } from "./util/index";
-import Home from "./pages/Home";
-import SignUpForm from "./SignUpForm";
-import SignInForm from "./pages/SignInForm";
-import AddResolutionForm from "./AddResolutionForm";
-import NewResolutions from "./components/newResopage/NewResolutions";
-import DailyQuests from "./pages/DailyQuests";
-import Dashboard from "./components/Dashboard";
+import React, { useState, useEffect, Component } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { getAllData } from './util/index';
+import Home from './pages/Home';
+import SignUpForm from './pages/SignUpForm';
+import SignInForm from './pages/SignInForm';
+import AddResolutionForm from './AddResolutionForm';
+import NewResolutions from './components/newResopage/NewResolutions';
+import DailyQuests from './pages/DailyQuests';
+import Dashboard from './components/Dashboard';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const queryClient = new QueryClient();
-const URL = "http://localhost:8000/api/v1/";
+const URL = 'https://ii-practicum-team-2-back.onrender.com/api/v1';
 
 class ErrorBoundary extends Component {
-  state = { error: null };
+  state = { error: null, errorInfo: null };
+
   static getDerivedStateFromError(error) {
     return { error };
   }
+
+  componentDidCatch(error, errorInfo) {
+    console.error('ErrorBoundary caught:', error, errorInfo);
+    this.setState({ error, errorInfo });
+  }
+
   render() {
     if (this.state.error) {
-      return <h1>Error: {this.state.error.message}</h1>;
+      return (
+        <div style={{ padding: '20px', color: 'red' }}>
+          <h1>Something went wrong in the App component</h1>
+          <p>{this.state.error?.message || 'Unknown error'}</p>
+          <pre>{this.state.errorInfo?.componentStack || 'No stack trace available'}</pre>
+        </div>
+      );
     }
     return this.props.children;
   }
 }
 
 function App() {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     (async () => {
       try {
         const myData = await getAllData(URL);
-        console.log("getAllData response:", JSON.stringify(myData, null, 2));
+        console.log('getAllData response:', JSON.stringify(myData, null, 2));
         setMessage(myData.data || JSON.stringify(myData));
       } catch (error) {
-        console.error("getAllData error:", error.message, error.response?.data);
-        setMessage("Failed to fetch data");
+        console.error('getAllData error:', {
+          message: error.message,
+          response: error.response?.data,
+          status: error.response?.status,
+        });
+        setMessage('Failed to fetch data');
       }
     })();
     return () => {
-      console.log("unmounting");
+      console.log('unmounting');
     };
   }, []);
 
@@ -58,10 +75,38 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/signup" element={<SignUpForm />} />
               <Route path="/signin" element={<SignInForm />} />
-              <Route path="/add-resolution" element={<AddResolutionForm />} />
-              <Route path="/new-resolutions" element={<NewResolutions />} />
-              <Route path="/daily-quests" element={<DailyQuests />} />
-              <Route path="/dashboard" element={<Dashboard />} />
+              <Route
+                path="/add-resolution"
+                element={
+                  <ProtectedRoute>
+                    <AddResolutionForm />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/new-resolutions"
+                element={
+                  <ProtectedRoute>
+                    <NewResolutions />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/daily-quests"
+                element={
+                  <ProtectedRoute>
+                    <DailyQuests />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute>
+                    <Dashboard />
+                  </ProtectedRoute>
+                }
+              />
             </Routes>
           </div>
         </ErrorBoundary>

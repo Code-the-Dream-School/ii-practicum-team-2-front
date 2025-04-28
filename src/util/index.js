@@ -1,25 +1,21 @@
-import axios from "axios";
- 
-// note: not used, but could be used with GET with params
-const getData = async (url, params) => {
+import axios from 'axios';
+
+export async function getAllData(url) {
+  let token = localStorage.getItem('access_token');
+
   try {
-    const res = await axios.get(url, { params });
-    return res.data;
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: token ? `Bearer ${token}` : undefined,
+      },
+    });
+    return response.data;
   } catch (error) {
-    console.error(`Error in getData for ${url}:`, error);
-    throw error; // Propagate error to caller
+    console.error('getAllData fetch error:', {
+      message: error.message,
+      response: error.response?.data,
+      status: error.response?.status,
+    });
+    throw error;
   }
-};
-
-const getAllData = async (url) => {
-  try {
-    const res = await axios.get(url);
-    return res.data;
-  } catch (error) {
-    console.error(`Error in getAllData for ${url}:`, error);
-    throw error; // Propagate error to caller
-  }
-};
-
-
-  export {getData, getAllData};
+}
