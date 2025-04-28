@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
 
 const ReadBooksForm = ({ setBookResolutions }) => {
   const [formData, setFormData] = useState({
@@ -58,8 +57,6 @@ const ReadBooksForm = ({ setBookResolutions }) => {
   //   }
 
   const [successMessage, setSuccessMessage] = useState("");
-
-  // const navigate = useNavigate();
 
   useEffect(() => {
     const savedResolutions =
