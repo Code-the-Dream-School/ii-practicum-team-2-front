@@ -44,7 +44,10 @@ function App() {
           <Route path="/new-resolutions" element={<NewResolutions />} />
           <Route path="/daily-quests" element={<DailyQuests />} />
 
-          <Route path="/read-books-resolution-goals" element={<ReadBooksResolutionGoalsInput />} />
+          <Route
+            path="/read-books-resolution-goals"
+            element={<ReadBooksResolutionGoalsInput />}
+          />
 
           <Route
             path="/my-resolutions"
@@ -62,7 +65,6 @@ function App() {
               />
             }
           /> */}
-
         </Routes>
       </div>
     </Router>
