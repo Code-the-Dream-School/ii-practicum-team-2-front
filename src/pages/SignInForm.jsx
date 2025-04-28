@@ -23,9 +23,17 @@ const SignInForm = () => {
     <div className="fixed inset-0 flex items-center justify-center p-4 bg-white z-10">
       <div className="bg-white rounded-[25px] border border-gray-300 shadow-lg p-6 pb-6 w-[450px]">
         <div className="flex flex-col items-center mb-4">
+          <h2 className="text-2xl font-bold text-gray-800">
+            Sign in to your account
+          </h2>
           <h2 className="text-2xl font-bold text-gray-800">Login to your account</h2>
         </div>
 
+        <form
+          className="space-y-3 text-left"
+          action="/api/signin"
+          method="POST"
+        >
         <form onSubmit={handleSubmit} className="space-y-3 text-left">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Email address</label>
@@ -88,7 +96,9 @@ const SignInForm = () => {
               <div className="w-full border-t border-gray-300"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-gray-500">Or continue with</span>
+              <span className="px-2 bg-white text-gray-500">
+                Or continue with
+              </span>
             </div>
           </div>
 
