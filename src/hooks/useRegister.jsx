@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import api, { setTokens } from '../util/auth'; 
+import api, { setTokens } from '../util/auth';
 
-export function useRegister() {
+export function useRegister({ onError, onSuccess } = {}) {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
@@ -11,9 +11,11 @@ export function useRegister() {
       api.post('/users/register', { email, password, password_confirmation, name }),
     onSuccess: (response) => {
       const { user, access_token, refresh_token } = response.data;
+      console.log('Register success:', response.data);
       queryClient.setQueryData(['user'], user);
-      setTokens({ access_token, refresh_token }); 
+      setTokens({ access_token, refresh_token });
       navigate('/dashboard');
+      if (onSuccess) onSuccess();
     },
     onError: (err) => {
       console.error('Register error:', {
@@ -21,6 +23,7 @@ export function useRegister() {
         response: err.response?.data,
         status: err.response?.status,
       });
+      if (onError) onError(err?.response?.data?.message || err?.message);
     },
   });
 

@@ -7,7 +7,7 @@ import Home from './pages/Home';
 import SignUpForm from './pages/SignUpForm';
 import SignInForm from './pages/SignInForm';
 import AddResolutionForm from './AddResolutionForm';
-import NewResolutions from './components/newResopage/NewResolutions';
+//import NewResolutions from './components/newResopage/NewResolutions';
 import DailyQuests from './pages/DailyQuests';
 import Dashboard from './components/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -83,14 +83,14 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              <Route
+              {/* <Route
                 path="/new-resolutions"
                 element={
                   <ProtectedRoute>
                     <NewResolutions />
                   </ProtectedRoute>
                 }
-              />
+              /> */}
               <Route
                 path="/daily-quests"
                 element={

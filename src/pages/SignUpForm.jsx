@@ -1,4 +1,3 @@
-//src/pages/SignUpForm.jsx
 import React, { useState } from 'react';
 import { useRegister } from '../hooks/useRegister';
 import shape1 from '../assets/shape1.png';
@@ -11,7 +10,14 @@ const SignUpForm = () => {
     password: '',
     password_confirmation: '',
   });
-  const { register, isLoading, error } = useRegister();
+  const [error, setError] = useState(null);
+  const hideError = () => setError(null);
+  const showError = (message) => setError(message);
+
+  const { register, isLoading } = useRegister({
+    onError: showError,
+    onSuccess: hideError
+  });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -20,7 +26,7 @@ const SignUpForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.password !== formData.password_confirmation) {
-      alert('Passwords do not match');
+      showError('Passwords do not match');
       return;
     }
     try {
