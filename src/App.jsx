@@ -44,6 +44,8 @@ class ErrorBoundary extends Component {
 
 function App() {
   const [message, setMessage] = useState('');
+  const [resolutions, setResolutions] = useState([]);
+
 
 
   useEffect(() => {
