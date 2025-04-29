@@ -7,10 +7,11 @@ import Home from './pages/Home';
 import SignUpForm from './pages/SignUpForm';
 import SignInForm from './pages/SignInForm';
 import AddResolutionForm from './AddResolutionForm';
-//import NewResolutions from './components/newResopage/NewResolutions';
+import NewResolutions from "./components/chooseNewResopage/NewResolutions";
 import DailyQuests from './pages/DailyQuests';
 import Dashboard from './components/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
+import ReadBooksResolutionGoalsInput from "./components/readBooksResolutionGoalsInputPage/ReadBooksResolutionGoalsInput";
 
 const queryClient = new QueryClient();
 const URL = 'https://ii-practicum-team-2-back.onrender.com/api/v1';
@@ -43,6 +44,7 @@ class ErrorBoundary extends Component {
 
 function App() {
   const [message, setMessage] = useState('');
+
 
   useEffect(() => {
     (async () => {
