@@ -10,17 +10,36 @@ const iconOptions = [
   "📘",
   "✨",
   "🤸",
-  "🪥",
-  "🧼",
+  "📖",
+  "🎉",
+  "📋",
   "💪",
-  "🚴",
+  "🎧",
+  "🏛️",
+  "🤝",
   "⏰",
-  "🌱",
+  "🍎",
   "📒",
   "📞",
   "🍳",
+  "📚",
   "🛏",
   "✍️",
+  "💰",
+  "👥",
+  "🗺️",
+  "🧳",
+  "📝",
+  "⏱",
+  "📵",
+  "📔",
+  "🏞️",
+  "🥦",
+  "🔍",
+  "❌",
+  "🧹",
+  "🧠",
+  "🎯",
 ];
 const weekDays = [
   "Mondays",
@@ -44,10 +63,12 @@ const QuestModal = ({
   icon,
   setIcon,
   isEditing = false,
+  showDeleteButton = true,
 }) => {
   const [showIconPicker, setShowIconPicker] = useState(false);
   const iconPickerRef = useRef(null);
   const [repeatDays, setRepeatDays] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -68,6 +89,7 @@ const QuestModal = ({
   useEffect(() => {
     if (!isOpen) {
       setShowIconPicker(false);
+      setErrorMessage("");
     }
   }, [isOpen]);
 
@@ -75,8 +97,12 @@ const QuestModal = ({
     if (!isOpen) return;
     if (frequency === "Daily") {
       setRepeatDays(["Daily"]);
-    } else {
+    } else if (Array.isArray(frequency)) {
+      setRepeatDays(frequency);
+    } else if (typeof frequency === "string") {
       setRepeatDays(frequency.split(", ").filter(Boolean));
+    } else {
+      setRepeatDays([]);
     }
   }, [isOpen]);
 
@@ -90,21 +116,44 @@ const QuestModal = ({
     } else {
       setRepeatDays((prev) => {
         let updated = prev.filter((d) => d !== "Daily");
-        return updated.includes(day)
-          ? updated.filter((d) => d !== day)
-          : [...updated, day];
+        if (updated.includes(day)) {
+          updated = updated.filter((d) => d !== day);
+        } else {
+          updated = [...updated, day];
+        }
+
+        const allDays = [
+          "Mondays",
+          "Tuesdays",
+          "Wednesdays",
+          "Thursdays",
+          "Fridays",
+          "Saturdays",
+          "Sundays",
+        ];
+        if (allDays.every((d) => updated.includes(d))) {
+          return ["Daily"];
+        }
+
+        return updated;
       });
     }
+  };
+
+  const handleSaveClick = () => {
+    if (!title.trim() || !frequency.trim()) {
+      setErrorMessage("Quest name and frequency are required!");
+      setTimeout(() => setErrorMessage(""), 3000);
+      return;
+    }
+    setErrorMessage("");
+    onSave({ title, frequency, icon });
   };
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      onSave({
-        title,
-        frequency,
-        icon,
-      });
+      handleSaveClick();
     }
   };
 
@@ -142,7 +191,7 @@ const QuestModal = ({
               className="text-lg hover:scale-110 transition"
               title="Choose icon"
             >
-              {icon || "＋"}
+              {icon || "💰"}
             </button>
             <input
               type="text"
@@ -153,6 +202,11 @@ const QuestModal = ({
               onKeyDown={handleKeyDown}
             />
           </div>
+          {errorMessage && (
+            <div className="text-center text-red-500 text-xs font-semibold mt-2">
+              {errorMessage}
+            </div>
+          )}
 
           <div
             className={`mt-2 flex flex-wrap gap-2 p-2 bg-gray-50 rounded transition-all duration-300 ease-in-out ${
@@ -186,7 +240,7 @@ const QuestModal = ({
             <label className="flex items-center gap-2">
               <input
                 type="checkbox"
-                className="accent-[#3c51e0] w-3 h-3"
+                className="accent-indigo-600 w-3 h-3"
                 checked={repeatDays.includes("Daily")}
                 onChange={() => handleToggleDay("Daily")}
               />
@@ -196,7 +250,7 @@ const QuestModal = ({
               <label key={day} className="flex items-center gap-2">
                 <input
                   type="checkbox"
-                  className="w-3 h-3"
+                  className="accent-indigo-600 w-3 h-3"
                   checked={repeatDays.includes(day)}
                   onChange={() => handleToggleDay(day)}
                 />
@@ -207,7 +261,7 @@ const QuestModal = ({
         </div>
 
         <div className="flex justify-end gap-3 mt-6">
-          {isEditing && (
+          {isEditing && showDeleteButton && (
             <button
               onClick={onDelete}
               className="px-2.5 py-1 rounded-full border border-red-300 text-red-600 hover:bg-red-50 text-xs"
@@ -216,8 +270,8 @@ const QuestModal = ({
             </button>
           )}
           <button
-            onClick={() => onSave({ title, frequency, icon })}
-            className="px-2.5 py-1 bg-[#3c51e0] text-white rounded-full hover:bg-blue-700 text-xs"
+            onClick={handleSaveClick}
+            className="px-5 py-2 bg-indigo-600 text-white text-xs font-semibold rounded-2xl hover:bg-blue-700 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/50 transition duration-300 ease-in-out block"
           >
             Save
           </button>

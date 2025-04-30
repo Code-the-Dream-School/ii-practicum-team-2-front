@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import NavbarTopnewResoLoggedIn from "../chooseNewResopage/NavbarTopnewResoLoggedIn";
 import ReadBooksForm from "../readBooksFormAndCard/readBooksForm";
-import AddResolutionQuests from "../../pages/AddResolutionQuests";
+import ReadBooksQuests from "../readBooksFormAndCard/readBooksQuests";
 import confetti4 from "../../assets/confetti4.png";
 
 const ReadBooksApp = () => {
@@ -42,7 +42,7 @@ const ReadBooksApp = () => {
             </div>
 
             <div className="flex-1 max-w-md mx-2 z-0">
-              <AddResolutionQuests />
+              <ReadBooksQuests />
             </div>
           </div>
         </div>
