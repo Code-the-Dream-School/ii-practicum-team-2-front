@@ -1,0 +1,51 @@
+export const defaultQuests = [
+  {
+    id: 1,
+    title: "Drink water",
+    icon: "💧",
+    frequency: "Daily",
+    completed: {},
+  },
+  {
+    id: 2,
+    title: "Stretch",
+    icon: "🤸",
+    frequency: "Mondays, Wednesdays",
+    completed: {},
+  },
+  {
+    id: 3,
+    title: "Read 1 page",
+    icon: "📘",
+    frequency: "Daily",
+    completed: {},
+  },
+  {
+    id: 4,
+    title: "Meditate for 10 minutes",
+    icon: "✨",
+    frequency: "Daily",
+    completed: {},
+  },
+  {
+    id: 5,
+    title: "Go for a walk",
+    icon: "🚶‍♂️",
+    frequency: "Fridays",
+    completed: {},
+  },
+  {
+    id: 6,
+    title: "Sleep early",
+    icon: "🛏",
+    frequency: "Mondays, Wednesdays, Fridays",
+    completed: {},
+  },
+  {
+    id: 7,
+    title: "Write journal entry",
+    icon: "✍️",
+    frequency: "Fridays",
+    completed: {},
+  },
+];
