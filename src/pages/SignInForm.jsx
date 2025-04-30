@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useLogin } from '../hooks/useLogin';
 import DOMPurify from 'dompurify';
+import toast from 'react-hot-toast';
 
 const SignInForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { login, isLoading, error } = useLogin();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -13,8 +16,12 @@ const SignInForm = () => {
       const sanitizedEmail = DOMPurify.sanitize(email);
       const sanitizedPassword = DOMPurify.sanitize(password);
       await login({ email: sanitizedEmail, password: sanitizedPassword });
+      // If login succeeds (no error thrown), redirect to /daily-quests
+      toast.success('Signed in successfully!');
+      navigate('/daily-quests');
     } catch (error) {
       console.error('Login error:', error);
+      toast.error(error.message || 'Failed to sign in');
     }
   };
 

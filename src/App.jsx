@@ -7,26 +7,29 @@ import Home from './pages/Home';
 import SignUpForm from './pages/SignUpForm';
 import SignInForm from './pages/SignInForm';
 import AddResolutionForm from './AddResolutionForm';
-import NewResolutions from "./components/chooseNewResopage/NewResolutions";
+import NewResolutions from './components/chooseNewResopage/NewResolutions';
 import DailyQuests from './pages/DailyQuests';
-import Dashboard from './components/Dashboard';
-import ProtectedRoute from './components/ProtectedRoute';
-import ReadBooksResolutionGoalsInput from "./components/readBooksResolutionGoalsInputPage/ReadBooksResolutionGoalsInput";
+import ReadBooksResolutionGoalsInput from './components/readBooksResolutionGoalsInputPage/ReadBooksResolutionGoalsInput';
+
 
 const queryClient = new QueryClient();
 const URL = 'https://ii-practicum-team-2-back.onrender.com/api/v1';
 
+
 class ErrorBoundary extends Component {
   state = { error: null, errorInfo: null };
+
 
   static getDerivedStateFromError(error) {
     return { error };
   }
 
+
   componentDidCatch(error, errorInfo) {
     console.error('ErrorBoundary caught:', error, errorInfo);
     this.setState({ error, errorInfo });
   }
+
 
   render() {
     if (this.state.error) {
@@ -42,10 +45,10 @@ class ErrorBoundary extends Component {
   }
 }
 
+
 function App() {
   const [message, setMessage] = useState('');
   const [resolutions, setResolutions] = useState([]);
-
 
 
   useEffect(() => {
@@ -68,6 +71,7 @@ function App() {
     };
   }, []);
 
+
   return (
     <QueryClientProvider client={queryClient}>
       <Router>
@@ -79,38 +83,10 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/signup" element={<SignUpForm />} />
               <Route path="/signin" element={<SignInForm />} />
-              <Route
-                path="/add-resolution"
-                element={
-                  <ProtectedRoute>
-                    <AddResolutionForm />
-                  </ProtectedRoute>
-                }
-              />
-              {/* <Route
-                path="/new-resolutions"
-                element={
-                  <ProtectedRoute>
-                    <NewResolutions />
-                  </ProtectedRoute>
-                }
-              /> */}
-              <Route
-                path="/daily-quests"
-                element={
-                  <ProtectedRoute>
-                    <DailyQuests />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/dashboard"
-                element={
-                  <ProtectedRoute>
-                    <Dashboard />
-                  </ProtectedRoute>
-                }
-              />
+              <Route path="/add-resolution" element={<AddResolutionForm />} />
+              <Route path="/new-resolutions" element={<NewResolutions />} />
+              <Route path="/daily-quests" element={<DailyQuests />} />
+              <Route path="/read-books-goals" element={<ReadBooksResolutionGoalsInput />} />
             </Routes>
           </div>
         </ErrorBoundary>
@@ -118,5 +94,6 @@ function App() {
     </QueryClientProvider>
   );
 }
+
 
 export default App;
