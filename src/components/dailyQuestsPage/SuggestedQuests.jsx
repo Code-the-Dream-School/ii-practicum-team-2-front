@@ -4,6 +4,8 @@ import {
   EyeSlashIcon,
   ArrowPathIcon,
 } from "@heroicons/react/24/outline";
+import { isLocal, getRandomSuggestions } from "../../util/suggestionHelpers";
+import { fetchSuggestions } from "../../api/suggestions";
 
 const initialSuggestions = [
   { title: "Do yoga", icon: "🧘", frequency: "Mondays, Wednesdays, Fridays" },
@@ -23,32 +25,11 @@ function SuggestedQuests({ quests, setQuests }) {
   const [suggestions, setSuggestions] = useState([]);
   const [userQuests, setUserQuests] = useState([]);
 
-  const isLocal = true;
-
-  function getRandomSuggestions(list) {
-    const shuffled = [...list].sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, Math.min(3, shuffled.length));
-  }
-
   useEffect(() => {
     if (isLocal) {
       setSuggestions(getRandomSuggestions(initialSuggestions));
     } else {
-      async function fetchSuggestions() {
-        try {
-          const response = await fetch("/api/v1/daily-quests/suggestions", {
-            headers: {
-              Authorization: `Bearer ${yourTokenHere}`,
-            },
-          });
-          const data = await response.json();
-          setSuggestions(data);
-        } catch (error) {
-          console.error("Error fetching suggestions:", error);
-        }
-      }
-
-      fetchSuggestions();
+      fetchSuggestions("token").then(setSuggestions);
     }
   }, []);
 
@@ -70,21 +51,7 @@ function SuggestedQuests({ quests, setQuests }) {
       );
       setSuggestions(shuffled.slice(0, Math.min(3, shuffled.length)));
     } else {
-      async function fetchSuggestions() {
-        try {
-          const response = await fetch("/api/v1/daily-quests/suggestions", {
-            headers: {
-              Authorization: `Bearer ${yourTokenHere}`,
-            },
-          });
-          const data = await response.json();
-          setSuggestions(data);
-        } catch (error) {
-          console.error("Error fetching suggestions:", error);
-        }
-      }
-
-      fetchSuggestions();
+      fetchSuggestions("token").then(setSuggestions);
     }
   }
 
@@ -121,19 +88,19 @@ function SuggestedQuests({ quests, setQuests }) {
         <div>
           {filteredSuggestions.length > 0 ? (
             <ul className="space-y-1.5 w-full">
-              {filteredSuggestions.map((s, index) => (
+              {filteredSuggestions.map((suggestion) => (
                 <li
-                  key={index}
+                  key={suggestion.title}
                   className="flex justify-between items-center p-2 rounded-xl border border-gray-200 shadow-sm bg-white w-full"
                 >
                   <div className="flex items-center gap-2">
-                    <span className="text-lg">{s.icon}</span>
+                    <span className="text-lg">{suggestion.icon}</span>
                     <div className="flex flex-col">
                       <span className="text-xs font-medium text-gray-800">
-                        {s.title}
+                        {suggestion.title}
                       </span>
                       <span className="text-[10px] text-gray-400">
-                        {s.frequency}
+                        {suggestion.frequency}
                       </span>
                     </div>
                   </div>
@@ -142,14 +109,14 @@ function SuggestedQuests({ quests, setQuests }) {
                       onClick={() => {
                         const newQuest = {
                           id: Date.now(),
-                          title: s.title,
-                          icon: s.icon,
-                          frequency: s.frequency,
+                          title: suggestion.title,
+                          icon: suggestion.icon,
+                          frequency: suggestion.frequency,
                           completed: {},
                         };
                         setQuests((prev) => [...prev, newQuest]);
                         setSuggestions((prev) =>
-                          prev.filter((_, i) => i !== index),
+                          prev.filter((_, i) => i !== prev.indexOf(suggestion)),
                         );
                       }}
                       className="w-5 h-5 flex items-center justify-center rounded-[6px] border-2 border-indigo-600 bg-indigo-600 text-white hover:bg-white hover:text-indigo-600 transition-colors leading-none pb-[2px]"

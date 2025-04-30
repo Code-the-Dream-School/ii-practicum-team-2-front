@@ -1,28 +1,9 @@
 import React from "react";
 import { format } from "date-fns";
+import { getFilteredQuests } from "../../util/questFilters";
 
 const QuestList = ({ quests, selectedDay, handleToggle, openEditModal }) => {
-  const filteredQuests = quests
-    .filter((q) => {
-      if (!q.frequency) return false;
-
-      const selectedDayName = format(selectedDay, "EEEE").toLowerCase();
-      const freqString =
-        typeof q.frequency === "string" ? q.frequency.toLowerCase() : "";
-      const freqDays = freqString
-        .split(/,\s*/)
-        .map((day) => day.replace(/s$/, ""));
-
-      return (
-        freqString === "daily" ||
-        freqDays.includes(selectedDayName.replace(/s$/, ""))
-      );
-    })
-    .sort((a, b) => {
-      const aIsDaily = a.frequency.toLowerCase() === "daily";
-      const bIsDaily = b.frequency.toLowerCase() === "daily";
-      return aIsDaily === bIsDaily ? 0 : aIsDaily ? -1 : 1;
-    });
+  const filteredQuests = getFilteredQuests(quests, selectedDay);
 
   if (filteredQuests.length === 0) {
     return (

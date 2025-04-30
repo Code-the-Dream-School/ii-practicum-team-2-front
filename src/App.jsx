@@ -8,7 +8,7 @@ import SignUpForm from './pages/SignUpForm';
 import SignInForm from './pages/SignInForm';
 import AddResolutionForm from './AddResolutionForm';
 import NewResolutions from "./components/chooseNewResopage/NewResolutions";
-import DailyQuests from "./components/dailyQuestsPage/DailyQuests"
+import DailyQuests from "./pages/DailyQuests"
 import MyResolutions from "./components/myResolutionsPage/MyResolutions";
 import ReadBooksForm from "./components/readBooksFormAndCard/readBooksForm";
 import Dashboard from './components/Dashboard';

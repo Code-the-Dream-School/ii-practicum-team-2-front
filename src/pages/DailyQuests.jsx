@@ -1,107 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { format, addDays } from "date-fns";
-import QuestModal from "./QuestModal";
-import NavbarTopLoggedIn from "../chooseNewResopage/NavbarTopLoggedIn";
-import SuggestedQuests from "../dailyQuestsPage/SuggestedQuests";
-import WeekDaysCarousel from "./WeekDaysCarousel";
-import QuestList from "./QuestList";
-import AddQuestButton from "./AddQuestButton";
-
-const daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
-
-const normalizeFrequency = (freq) => {
-  if (!freq) return "";
-  const array = Array.isArray(freq)
-    ? freq
-    : freq.split(",").map((d) => d.trim());
-  return array.sort().join(", ");
-};
+import QuestModal from "../components/dailyQuestsPage/QuestModal";
+import NavbarTopLoggedIn from "../components/chooseNewResopage/NavbarTopLoggedIn";
+import SuggestedQuests from "../components/dailyQuestsPage/SuggestedQuests";
+import WeekDaysCarousel from "../components/dailyQuestsPage/WeekDaysCarousel";
+import QuestList from "../components/dailyQuestsPage/QuestList";
+import AddQuestButton from "../components/dailyQuestsPage/AddQuestButton";
+import { filterDefaultQuests } from "../util/questUtils";
+import { daysOfWeek } from "../util/dateConsts";
+import { defaultQuests } from "../util/questConsts";
+import { useQuestHandlers } from "../hooks/useQuestHandlers";
 
 const DailyQuests = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDay, setSelectedDay] = useState(currentDate);
   const [quests, setQuests] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const [showModal, setShowModal] = useState(false);
   const [selectedQuest, setSelectedQuest] = useState(null);
   const [title, setTitle] = useState("");
   const [frequency, setFrequency] = useState("Daily");
   const [icon, setIcon] = useState("+");
+  const savedBookQuests =
+    JSON.parse(localStorage.getItem("readBooksQuests")) || [];
+  const filteredDefaultQuests = filterDefaultQuests(
+    defaultQuests,
+    savedBookQuests,
+  );
 
   useEffect(() => {
-    const savedBookQuests =
-      JSON.parse(localStorage.getItem("readBooksQuests")) || [];
-
-    const defaultQuests = [
-      {
-        id: 1,
-        title: "Drink water",
-        icon: "💧",
-        frequency: "Daily",
-        completed: {},
-      },
-      {
-        id: 2,
-        title: "Stretch",
-        icon: "🤸",
-        frequency: "Mondays, Wednesdays",
-        completed: {},
-      },
-      {
-        id: 3,
-        title: "Read 1 page",
-        icon: "📘",
-        frequency: "Daily",
-        completed: {},
-      },
-      {
-        id: 4,
-        title: "Meditate for 10 minutes",
-        icon: "✨",
-        frequency: "Daily",
-        completed: {},
-      },
-      {
-        id: 5,
-        title: "Go for a walk",
-        icon: "🚶‍♂️",
-        frequency: "Fridays",
-        completed: {},
-      },
-      {
-        id: 6,
-        title: "Sleep early",
-        icon: "🛏",
-        frequency: "Mondays, Wednesdays, Fridays",
-        completed: {},
-      },
-      {
-        id: 7,
-        title: "Write journal entry",
-        icon: "✍️",
-        frequency: "Fridays",
-        completed: {},
-      },
-    ];
-
-    const filteredDefaultQuests = defaultQuests.filter((def) => {
-      return !savedBookQuests.some((saved) => {
-        const savedFreq = normalizeFrequency(saved.frequency);
-        const defFreq = normalizeFrequency(def.frequency);
-        return (
-          saved.title === def.title &&
-          saved.icon === def.icon &&
-          savedFreq === defFreq
-        );
-      });
-    });
-
     const combinedQuests = [
-      ...savedBookQuests.map((q) => ({ ...q, completed: {} })),
+      ...savedBookQuests.map((quest) => ({ ...quest, completed: {} })),
       ...filteredDefaultQuests,
     ];
-
     setQuests(combinedQuests);
     setLoading(false);
   }, []);
@@ -109,16 +40,16 @@ const DailyQuests = () => {
   const handleToggle = (questId) => {
     const dateKey = format(selectedDay, "yyyy-MM-dd");
     setQuests((prev) =>
-      prev.map((q) =>
-        q.id === questId
+      prev.map((quest) =>
+        quest.id === questId
           ? {
-              ...q,
+              ...quest,
               completed: {
-                ...(q.completed || {}),
-                [dateKey]: !q.completed?.[dateKey],
+                ...(quest.completed || {}),
+                [dateKey]: !quest.completed?.[dateKey],
               },
             }
-          : q,
+          : quest,
       ),
     );
   };
@@ -130,8 +61,6 @@ const DailyQuests = () => {
     setIcon(quest?.icon || "💰");
     setShowModal(true);
   };
-
-  const handleAddQuest = () => resetModalState();
 
   const openEditModal = (quest) => resetModalState(quest);
 
@@ -148,34 +77,22 @@ const DailyQuests = () => {
     };
   });
 
-  const handleSave = (updatedQuest) => {
-    let updatedQuests;
-    if (selectedQuest) {
-      updatedQuests = quests.map((q) =>
-        q.id === selectedQuest.id ? updatedQuest : q,
-      );
-    } else {
-      updatedQuests = [
-        ...quests,
-        { ...updatedQuest, id: Date.now(), completed: {} },
-      ];
-    }
-    setQuests(updatedQuests);
-    localStorage.setItem("readBooksQuests", JSON.stringify(updatedQuests));
-    setShowModal(false);
-  };
+  const { handleSave, handleDelete } = useQuestHandlers(
+    quests,
+    setQuests,
+    selectedQuest,
+    setShowModal,
+  );
 
-  const handleDelete = () => {
-    if (selectedQuest) {
-      setQuests((prev) => prev.filter((q) => q.id !== selectedQuest.id));
-      setShowModal(false);
-    }
+  const goToToday = () => {
+    const today = new Date();
+    setSelectedDay(today);
+    setCurrentDate(today);
   };
 
   return (
-    <div className="bg-[#EDEDF4] min-h-screen">
+    <>
       <NavbarTopLoggedIn />
-
       <div className="px-6 py-4 w-full max-w-xs mx-auto">
         <div className="text-center">
           <h1 className="text-2xl font-bold mb-1">Daily Quests</h1>
@@ -183,14 +100,9 @@ const DailyQuests = () => {
             {format(selectedDay, "EEEE, MMMM d")}
           </p>
         </div>
-
         <div className="flex justify-center mb-4">
           <button
-            onClick={() => {
-              const today = new Date();
-              setSelectedDay(today);
-              setCurrentDate(today);
-            }}
+            onClick={goToToday}
             className="px-5 py-2 bg-indigo-600 text-white text-xs font-semibold rounded-2xl hover:bg-blue-700 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/50 transition duration-300 ease-in-out block"
           >
             Today
@@ -216,9 +128,7 @@ const DailyQuests = () => {
             openEditModal={openEditModal}
           />
         )}
-
-        <AddQuestButton onAddQuest={handleAddQuest} />
-
+        <AddQuestButton onAddQuest={resetModalState} />
         <QuestModal
           isOpen={showModal}
           onClose={() => setShowModal(false)}
@@ -232,12 +142,11 @@ const DailyQuests = () => {
           setIcon={setIcon}
           isEditing={!!selectedQuest}
         />
-
         <div className="mt-8">
           <SuggestedQuests quests={quests} setQuests={setQuests} />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
