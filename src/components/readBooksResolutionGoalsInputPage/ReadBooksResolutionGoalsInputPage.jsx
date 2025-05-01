@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import NavbarTopnewResoLoggedIn from "../chooseNewResopage/NavbarTopnewResoLoggedIn";
-import ReadBooksForm from "../readBooksFormAndCard/readBooksForm";
+import ReadBooksForm from "../readBooksFormAndCard/ReadBooksForm";
 import ReadBooksQuests from "../readBooksFormAndCard/readBooksQuests";
 import confetti4 from "../../assets/confetti4.png";
 

@@ -22,14 +22,14 @@ const ReadBooksCard = ({ resolution }) => {
       >
         {/* Image */}
         <img
-          className="w-full h-40 object-cover"
+          className="w-full h-36 object-cover"
           src={readBooksIcon}
           alt="Read Books Icon"
         />
 
         <div className="px-6 py-4">
           <h3 className="title font-bold text-2xl mb-2">
-            Read More Books Resolution
+            Read More Books
           </h3>
 
           <p className="text-gray-700 font-bold text-base">
@@ -67,9 +67,9 @@ const ReadBooksCard = ({ resolution }) => {
 
           {/* Down Arrow to Toggle Additional Information */}
           <div className="cursor-pointer" onClick={toggleExpand}>
-            <span className="text-gray-900 block text-center font-bold hover:text-cyan-700">
+            {/* <span className="text-gray-900 block text-center font-bold hover:text-cyan-700">
               Show More
-            </span>
+            </span> */}
             <div className="flex justify-center">
               <ChevronDownIcon
                 className={`h-5 w-5 transition-transform ${
