@@ -30,7 +30,7 @@ const WeekDaysCarousel = ({
             } scroll-snap-start shadow-sm border border-gray-200`}
           >
             <span>{date}</span>
-            <span className="text-[8px] text-gray-400">{day}</span>
+            <span className="text-[8px] text-gray-900 font-medium">{day}</span>
           </button>
         ))}
       </div>

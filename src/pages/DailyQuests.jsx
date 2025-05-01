@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { format, addDays } from "date-fns";
 import QuestModal from "../components/dailyQuestsPage/QuestModal";
-import NavbarTopLoggedIn from "../components/chooseNewResopage/NavbarTopLoggedIn";
 import SuggestedQuests from "../components/dailyQuestsPage/SuggestedQuests";
 import WeekDaysCarousel from "../components/dailyQuestsPage/WeekDaysCarousel";
 import QuestList from "../components/dailyQuestsPage/QuestList";
@@ -25,7 +24,7 @@ const DailyQuests = () => {
     JSON.parse(localStorage.getItem("readBooksQuests")) || [];
   const filteredDefaultQuests = filterDefaultQuests(
     defaultQuests,
-    savedBookQuests,
+    savedBookQuests
   );
 
   useEffect(() => {
@@ -49,8 +48,8 @@ const DailyQuests = () => {
                 [dateKey]: !quest.completed?.[dateKey],
               },
             }
-          : quest,
-      ),
+          : quest
+      )
     );
   };
 
@@ -81,7 +80,7 @@ const DailyQuests = () => {
     quests,
     setQuests,
     selectedQuest,
-    setShowModal,
+    setShowModal
   );
 
   const goToToday = () => {
@@ -92,8 +91,8 @@ const DailyQuests = () => {
 
   return (
     <>
-      <NavbarTopLoggedIn />
-      <div className="px-6 py-4 w-full max-w-xs mx-auto">
+    
+      <div className="px-6 py-4 w-full max-w-xs mx-auto bg-gray-200 rounded-2xl shadow-md">
         <div className="text-center">
           <h1 className="text-2xl font-bold mb-1">Daily Quests</h1>
           <p className="text-black font-semibold text-sm mb-4 mt-2">

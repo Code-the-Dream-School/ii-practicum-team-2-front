@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ReadBooksCard from "../readBooksFormAndCard/readBooksCard";
+import ReadBooksCard from "../readBooksFormAndCard/ReadBooksCard";
 import NavbarTopMyResoLoggedIn from "./NavbarTopMyResoLoggedIn";
 
 const MyResolutions = ({ resolutions }) => {
