@@ -16,7 +16,7 @@ const SignInForm = () => {
       const sanitizedEmail = DOMPurify.sanitize(email);
       const sanitizedPassword = DOMPurify.sanitize(password);
       await login({ email: sanitizedEmail, password: sanitizedPassword });
-      // If login succeeds (no error thrown), redirect to /daily-quests
+
       toast.success('Signed in successfully!');
       navigate('/daily-quests');
     } catch (error) {

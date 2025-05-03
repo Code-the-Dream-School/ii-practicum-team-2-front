@@ -18,7 +18,7 @@ export function useRefreshToken() {
         status: err.response?.status,
       });
       api.clearTokens();
-      window.location.href = '/signin'; // Redirect to login if refresh fails
+      window.location.href = '/signin'; 
     },
   });
 

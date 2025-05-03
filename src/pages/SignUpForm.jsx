@@ -16,30 +16,59 @@ const SignUpForm = () => {
 
   const { register, isLoading } = useRegister({
     onError: showError,
-    onSuccess: hideError
+    onSuccess: hideError,
   });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const validateForm = () => {
+  
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      showError('Please enter a valid email address');
+      return false;
+    }
+
+    
+    const nameRegex = /^[a-zA-Z\s]{2,}$/;
+    if (!nameRegex.test(formData.name)) {
+      showError('Name must be at least 2 characters long and contain only letters and spaces');
+      return false;
+    }
+
+    
+    const passwordRegex = /^(?=.*[0-7])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
+    if (!passwordRegex.test(formData.password)) {
+      showError('Password must be at least 8 characters long, include 1 number and 1 special character');
+      return false;
+    }
+
+    
     if (formData.password !== formData.password_confirmation) {
       showError('Passwords do not match');
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    hideError(); 
+
+    if (!validateForm()) {
       return;
     }
-    try {
-      const sanitizedData = {
-        name: DOMPurify.sanitize(formData.name),
-        email: DOMPurify.sanitize(formData.email),
-        password: DOMPurify.sanitize(formData.password),
-        password_confirmation: DOMPurify.sanitize(formData.password_confirmation),
-      };
-      await register(sanitizedData);
-    } catch (err) {
-      console.error('Registration error:', err);
-    }
+
+    const sanitizedData = {
+      name: DOMPurify.sanitize(formData.name),
+      email: DOMPurify.sanitize(formData.email),
+      password: DOMPurify.sanitize(formData.password),
+      password_confirmation: DOMPurify.sanitize(formData.password_confirmation),
+    };
+    register(sanitizedData);
   };
 
   return (

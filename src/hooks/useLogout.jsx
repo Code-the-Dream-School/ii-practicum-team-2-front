@@ -8,9 +8,9 @@ export function useLogout() {
 
   const logout = async () => {
     try {
-      clearTokens(); // Remove tokens from localStorage
-      queryClient.removeQueries(['user']); // Clear user data
-      navigate('/signin'); // Navigate to login page
+      clearTokens(); 
+      queryClient.removeQueries(['user']); 
+      navigate('/signin'); 
     } catch (error) {
       console.error('Logout error:', error);
     }
