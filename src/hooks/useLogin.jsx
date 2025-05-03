@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import api, { setTokens } from '../util/auth';
 
-export function useLogin() {
+export function useLogin({ onError, onSuccess } = {}) {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
@@ -11,9 +11,11 @@ export function useLogin() {
       api.post('/users/login', { email, password }),
     onSuccess: (response) => {
       const { user, access_token, refresh_token } = response.data;
+      console.log('Login success:', response.data);
       queryClient.setQueryData(['user'], user);
-      setTokens({ access_token, refresh_token }); 
+      setTokens({ access_token, refresh_token, user }); 
       navigate('/dashboard');
+      if (onSuccess) onSuccess();
     },
     onError: (err) => {
       console.error('Login error:', {
@@ -21,6 +23,12 @@ export function useLogin() {
         response: err.response?.data,
         status: err.response?.status,
       });
+      const errorMessage =
+        err.response?.data?.message ||
+        err.response?.data?.errors?.[0] ||
+        err.message ||
+        'Login failed';
+      if (onError) onError(errorMessage);
     },
   });
 

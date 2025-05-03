@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { getAccessToken, clearTokens } from '../util/auth';
-import { jwtDecode } from 'jwt-decode'; // Use named import
+import { jwtDecode } from 'jwt-decode'; 
 
 const ProtectedRoute = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(null);

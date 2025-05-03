@@ -10,8 +10,6 @@ import SignInForm from "./pages/SignInForm";
 import NewResolutions from "./components/chooseNewResopage/NewResolutionsPage";
 import DailyQuests from "./pages/DailyQuests";
 import MyResolutions from "./components/myResolutionsPage/MyResolutionsPage";
-
-import Dashboard from "./components/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ReadBooksResolutionGoalsInput from "./components/readBooksResolutionGoalsInputPage/ReadBooksResolutionGoalsInputPage";
 import DailyQuestsPage from "./components/dailyQuestsPage/DailyQuestPage";
