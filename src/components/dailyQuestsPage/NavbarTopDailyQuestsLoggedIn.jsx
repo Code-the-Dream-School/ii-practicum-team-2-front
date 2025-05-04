@@ -11,13 +11,22 @@ import {
 } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
-
+const user = JSON.parse(localStorage.getItem('user'));
 const navigation = [
   { name: "Daily Quests", href: "daily-quests", current: true },
   { name: "My Resolutions", href: "/my-resolutions", current: false },
   { name: "New Resolutions", href: "/new-resolutions", current: false },
   // { name: "Calendar", href: "#", current: false },
 ];
+const getInitials = (name) => {
+  if (!name) return '?';
+  return name
+    .split(' ')
+    .map(word => word[0])
+    .join('')
+    .toUpperCase()
+    .slice(0, 2);
+};
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -88,11 +97,25 @@ export function NavbarTopDailyQuestsLoggedIn() {
                 <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
                   <span className="absolute -inset-0.5" />
                   <span className="sr-only">Open user menu</span>
-                  <img
+                  <span className="font-semibold text-sm sm:text-base text-white flex justify-center my-1 ml-1 mr-2 select-none">
+  Welcome,{' '}
+  {user?.name
+    ? (() => {
+        const parts = user.name.trim().split(' ');
+        const firstName = parts[0] || '';
+        const lastNameInitial = parts.length > 1 ? parts[parts.length - 1][0] : '';
+        return firstName && lastNameInitial ? `${firstName} ${lastNameInitial}` : firstName || 'User';
+      })()
+    : 'User'}
+</span>
+                  <div className="flex items-center justify-center size-8 rounded-full bg-indigo-600 text-white font-medium">
+                  {getInitials(user?.name)}
+                  </div>
+                  {/* <img
                     alt="Profile picture"
                     src="/src/assets/profilepic1.png"
                     className="size-8 rounded-full"
-                  />
+                  /> */}
                 </MenuButton>
               </div>
               <MenuItems
