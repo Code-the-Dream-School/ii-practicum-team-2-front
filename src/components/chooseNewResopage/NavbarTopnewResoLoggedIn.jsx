@@ -100,7 +100,7 @@ export function NavbarTopLoggedIn() {
                 <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
                   <span className="absolute -inset-0.5" />
                   <span className="sr-only">Open user menu</span>
-                  <span className="font-semibold text-sm sm:text-base text-white flex justify-center m-1 select-none">
+                  <span className="font-semibold text-sm sm:text-base text-white flex justify-center my-1 ml-1 mr-2 select-none">
   Welcome,{' '}
   {user?.name
     ? (() => {
