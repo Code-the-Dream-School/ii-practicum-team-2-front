@@ -1,8 +1,7 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { useState, Component } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { getAllData } from "./util/index";
 import Home from "./pages/Home";
 import SignUpForm from "./pages/SignUpForm";
 import SignInForm from "./pages/SignInForm";
@@ -10,7 +9,6 @@ import SignInForm from "./pages/SignInForm";
 import NewResolutions from "./components/chooseNewResopage/NewResolutionsPage";
 import DailyQuests from "./pages/DailyQuests";
 import MyResolutions from "./components/myResolutionsPage/MyResolutionsPage";
-import ProtectedRoute from "./components/ProtectedRoute";
 import ReadBooksResolutionGoalsInput from "./components/readBooksResolutionGoalsInputPage/ReadBooksResolutionGoalsInputPage";
 import DailyQuestsPage from "./components/dailyQuestsPage/DailyQuestPage";
 
@@ -46,28 +44,7 @@ class ErrorBoundary extends Component {
 function App() {
   const [message, setMessage] = useState("");
   const [resolutions, setResolutions] = useState([]);
-
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const myData = await getAllData(URL);
-  //       console.log("getAllData response:", JSON.stringify(myData, null, 2));
-  //       setMessage(myData.data || JSON.stringify(myData));
-  //     } catch (error) {
-  //       console.error("getAllData error:", {
-  //         message: error.message,
-  //         response: error.response?.data,
-  //         status: error.response?.status,
-  //       });
-  //       setMessage("Failed to fetch data");
-  //     }
-  //   })();
-  //   return () => {
-  //     console.log("unmounting");
-  //   };
-  // }, []);
-
-  return (
+return (
     <QueryClientProvider client={queryClient}>
       <Router>
         <Toaster position="top-center" reverseOrder={false} />
