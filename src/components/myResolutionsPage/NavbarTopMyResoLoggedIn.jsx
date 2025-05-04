@@ -1,5 +1,5 @@
-import React from 'react';
-import { useLogout } from '../../hooks/useLogout';
+import React from "react";
+import { useLogout } from "../../hooks/useLogout";
 import {
   Disclosure,
   DisclosureButton,
@@ -10,8 +10,8 @@ import {
   MenuItems,
 } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+const user = JSON.parse(localStorage.getItem("user"));
 import { useNavigate } from "react-router-dom";
-
 
 const navigation = [
   { name: "Daily Quests", href: "daily-quests", current: false },
@@ -19,13 +19,21 @@ const navigation = [
   { name: "New Resolutions", href: "/new-resolutions", current: false },
   // { name: "Calendar", href: "#", current: false },
 ];
-
+const getInitials = (name) => {
+  if (!name) return "?";
+  return name
+    .split(" ")
+    .map((word) => word[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
+};
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export function NavbarTopMyResoLoggedIn() {
-   const { logout } = useLogout();
+  const { logout } = useLogout();
   const navigate = useNavigate();
   const handleHomeClick = () => {
     navigate("/");
@@ -83,18 +91,34 @@ export function NavbarTopMyResoLoggedIn() {
             </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-
             {/* Profile dropdown */}
             <Menu as="div" className="relative ml-3">
               <div>
                 <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
                   <span className="absolute -inset-0.5" />
                   <span className="sr-only">Open user menu</span>
-                  <img
+                  <span className="font-semibold text-sm sm:text-base text-white flex justify-center my-1 ml-1 mr-2 select-none">
+                    Welcome,{" "}
+                    {user?.name
+                      ? (() => {
+                          const parts = user.name.trim().split(" ");
+                          const firstName = parts[0] || "";
+                          const lastNameInitial =
+                            parts.length > 1 ? parts[parts.length - 1][0] : "";
+                          return firstName && lastNameInitial
+                            ? `${firstName} ${lastNameInitial}`
+                            : firstName || "User";
+                        })()
+                      : "User"}
+                  </span>
+                  <div className="flex items-center justify-center size-8 rounded-full bg-indigo-600 text-white font-medium">
+                    {getInitials(user?.name)}
+                  </div>
+                  {/* <img
                     alt="Profile picture"
                     src="/src/assets/profilepic1.png"
                     className="size-8 rounded-full"
-                  />
+                  /> */}
                 </MenuButton>
               </div>
               <MenuItems
@@ -118,7 +142,8 @@ export function NavbarTopMyResoLoggedIn() {
                   </a>
                 </MenuItem>
                 <MenuItem>
-                <button  onClick={handleLogout}
+                  <button
+                    onClick={handleLogout}
                     className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                   >
                     Sign out
