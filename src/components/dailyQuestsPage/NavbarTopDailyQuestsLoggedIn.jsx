@@ -1,5 +1,5 @@
-import React from 'react';
-import { useLogout } from '../../hooks/useLogout';
+import React from "react";
+import { useLogout } from "../../hooks/useLogout";
 import {
   Disclosure,
   DisclosureButton,
@@ -11,7 +11,7 @@ import {
 } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
-const user = JSON.parse(localStorage.getItem('user'));
+const user = JSON.parse(localStorage.getItem("user"));
 const navigation = [
   { name: "Daily Quests", href: "daily-quests", current: true },
   { name: "My Resolutions", href: "/my-resolutions", current: false },
@@ -19,11 +19,11 @@ const navigation = [
   // { name: "Calendar", href: "#", current: false },
 ];
 const getInitials = (name) => {
-  if (!name) return '?';
+  if (!name) return "?";
   return name
-    .split(' ')
-    .map(word => word[0])
-    .join('')
+    .split(" ")
+    .map((word) => word[0])
+    .join("")
     .toUpperCase()
     .slice(0, 2);
 };
@@ -98,18 +98,21 @@ export function NavbarTopDailyQuestsLoggedIn() {
                   <span className="absolute -inset-0.5" />
                   <span className="sr-only">Open user menu</span>
                   <span className="font-semibold text-sm sm:text-base text-white flex justify-center my-1 ml-1 mr-2 select-none">
-  Welcome,{' '}
-  {user?.name
-    ? (() => {
-        const parts = user.name.trim().split(' ');
-        const firstName = parts[0] || '';
-        const lastNameInitial = parts.length > 1 ? parts[parts.length - 1][0] : '';
-        return firstName && lastNameInitial ? `${firstName} ${lastNameInitial}` : firstName || 'User';
-      })()
-    : 'User'}
-</span>
+                    Welcome,{" "}
+                    {user?.name
+                      ? (() => {
+                          const parts = user.name.trim().split(" ");
+                          const firstName = parts[0] || "";
+                          const lastNameInitial =
+                            parts.length > 1 ? parts[parts.length - 1][0] : "";
+                          return firstName && lastNameInitial
+                            ? `${firstName} ${lastNameInitial}`
+                            : firstName || "User";
+                        })()
+                      : "User"}
+                  </span>
                   <div className="flex items-center justify-center size-8 rounded-full bg-indigo-600 text-white font-medium">
-                  {getInitials(user?.name)}
+                    {getInitials(user?.name)}
                   </div>
                   {/* <img
                     alt="Profile picture"
@@ -139,7 +142,8 @@ export function NavbarTopDailyQuestsLoggedIn() {
                   </a>
                 </MenuItem>
                 <MenuItem>
-                <button  onClick={handleLogout}
+                  <button
+                    onClick={handleLogout}
                     className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                   >
                     Sign out
