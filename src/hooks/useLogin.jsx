@@ -14,7 +14,7 @@ export function useLogin({ onError, onSuccess } = {}) {
       console.log('Login success:', response.data);
       queryClient.setQueryData(['user'], user);
       setTokens({ access_token, refresh_token, user }); 
-      navigate('/dashboard');
+      navigate('/daily-quests');
       if (onSuccess) onSuccess();
     },
     onError: (err) => {

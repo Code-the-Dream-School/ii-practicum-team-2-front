@@ -14,11 +14,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import ReadBooksResolutionGoalsInput from "./components/readBooksResolutionGoalsInputPage/ReadBooksResolutionGoalsInputPage";
 import DailyQuestsPage from "./components/dailyQuestsPage/DailyQuestPage";
 
-
-
 const queryClient = new QueryClient();
-const URL = "https://ii-practicum-team-2-back.onrender.com/api/v1";
-
 class ErrorBoundary extends Component {
   state = { error: null, errorInfo: null };
 
@@ -51,25 +47,25 @@ function App() {
   const [message, setMessage] = useState("");
   const [resolutions, setResolutions] = useState([]);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const myData = await getAllData(URL);
-        console.log("getAllData response:", JSON.stringify(myData, null, 2));
-        setMessage(myData.data || JSON.stringify(myData));
-      } catch (error) {
-        console.error("getAllData error:", {
-          message: error.message,
-          response: error.response?.data,
-          status: error.response?.status,
-        });
-        setMessage("Failed to fetch data");
-      }
-    })();
-    return () => {
-      console.log("unmounting");
-    };
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const myData = await getAllData(URL);
+  //       console.log("getAllData response:", JSON.stringify(myData, null, 2));
+  //       setMessage(myData.data || JSON.stringify(myData));
+  //     } catch (error) {
+  //       console.error("getAllData error:", {
+  //         message: error.message,
+  //         response: error.response?.data,
+  //         status: error.response?.status,
+  //       });
+  //       setMessage("Failed to fetch data");
+  //     }
+  //   })();
+  //   return () => {
+  //     console.log("unmounting");
+  //   };
+  // }, []);
 
   return (
     <QueryClientProvider client={queryClient}>

@@ -1,3 +1,5 @@
+import React from 'react';
+import { useLogout } from '../../hooks/useLogout';
 import {
   Disclosure,
   DisclosureButton,
@@ -9,6 +11,7 @@ import {
 } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
+
 
 const navigation = [
   { name: "Daily Quests", href: "daily-quests", current: false },
@@ -22,12 +25,14 @@ function classNames(...classes) {
 }
 
 export function NavbarTopMyResoLoggedIn() {
+   const { logout } = useLogout();
   const navigate = useNavigate();
-
   const handleHomeClick = () => {
     navigate("/");
   };
-
+  const handleLogout = () => {
+    logout();
+  };
   return (
     <Disclosure as="nav" className="bg-gray-800">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -121,12 +126,17 @@ export function NavbarTopMyResoLoggedIn() {
                   </a>
                 </MenuItem>
                 <MenuItem>
-                  <a
+                <button  onClick={handleLogout}
+                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    Sign out
+                  </button>
+                  {/* <a
                     href="#"
                     className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
                   >
                     Sign out
-                  </a>
+                  </a> */}
                 </MenuItem>
               </MenuItems>
             </Menu>
