@@ -1,6 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { clearTokens } from '../util/auth';
+import toast from 'react-hot-toast';
 
 export function useLogout() {
   const queryClient = useQueryClient();
@@ -10,9 +11,11 @@ export function useLogout() {
     try {
       clearTokens(); 
       queryClient.removeQueries(['user']); 
-      navigate('/signin'); 
+      localStorage.clear();
+      navigate('/'); 
     } catch (error) {
       console.error('Logout error:', error);
+      toast.error('Failed to logout');
     }
   };
 
