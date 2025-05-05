@@ -1,8 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import NavbarTopnewResoLoggedIn from "./NavbarTopnewResoLoggedIn";
+//import NavbarTopnewResoLoggedIn from "./NavbarTopnewResoLoggedIn";
 import CardComponent from "./CardComponent";
 import readBooksIcon from "../../assets/readBooksIcon.png";
+import { NavbarTop } from '../NavbarTop';
 
 function NewResolutions() {
   const navigate = useNavigate();
@@ -18,7 +19,8 @@ function NewResolutions() {
   return (
     <div>
       <div className="relative z-10">
-        <NavbarTopnewResoLoggedIn />
+        {/* <NavbarTopnewResoLoggedIn /> */}
+         <NavbarTop />
       </div>
 
       {/* Main container with grid layout */}

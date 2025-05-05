@@ -91,7 +91,6 @@ const DailyQuests = () => {
 
   return (
     <>
-    
       <div className="px-6 py-4 w-full max-w-xs mx-auto bg-gray-200 rounded-2xl shadow-md">
         <div className="text-center">
           <h1 className="text-2xl font-bold mb-1">Daily Quests</h1>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReadBooksCard from "../readBooksFormAndCard/ReadBooksCard";
-import NavbarTopMyResoLoggedIn from "./NavbarTopMyResoLoggedIn";
+//import NavbarTopMyResoLoggedIn from "./NavbarTopMyResoLoggedIn";
+import { NavbarTop } from "../NavbarTop";
 
 const MyResolutions = ({ resolutions }) => {
   const [localResolutions, setLocalResolutions] = useState([]);
@@ -16,7 +17,8 @@ const MyResolutions = ({ resolutions }) => {
 
   return (
     <div>
-      <NavbarTopMyResoLoggedIn />
+      {/* <NavbarTopMyResoLoggedIn /> */}
+      <NavbarTop />
 
       <div className="min-h-screen bg-gray-100 px-6 py-6">
         <div className="max-w-screen-xl mx-auto px-6 mb-8">
