@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import NavbarTopDailyQuestsLoggedIn from "../dailyQuestsPage/NavbarTopDailyQuestsLoggedIn";
+//import NavbarTopDailyQuestsLoggedIn from "../dailyQuestsPage/NavbarTopDailyQuestsLoggedIn";
 import ReadBooksCard from "../readBooksFormAndCard/ReadBooksCard";
+import { NavbarTop } from "../NavbarTop";
 
 import confetti4 from "../../assets/confetti4.png";
 import DailyQuests from "../../pages/DailyQuests";
@@ -18,13 +19,14 @@ const DailyQuestsPage = () => {
 
   return (
     <div>
-      <NavbarTopDailyQuestsLoggedIn />
+      {/* <NavbarTopDailyQuestsLoggedIn /> */}
+      <NavbarTop />
       <div className="min-h-[160vh] bg-gray-100 px-6 py-6 pt-12">
         <div className="max-w-screen-xl mx-auto px-6 mb-8">
           {/* Title for My Resolutions */}
           <div className="flex justify-center mb-4">
             <h2 className="text-4xl font-bold text-gray-800 text-center pb-4">
-             Take Small Daily Steps Toward Your Resolutions!
+              Take Small Daily Steps Toward Your Resolutions!
             </h2>
           </div>
 
