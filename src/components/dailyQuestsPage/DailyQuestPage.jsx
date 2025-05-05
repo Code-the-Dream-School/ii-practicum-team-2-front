@@ -30,7 +30,7 @@ const DailyQuestsPage = () => {
               Take Small Daily Steps Toward Your Resolutions!
             </h2>
           </div>
-          <div className="absolute inset-x-0 top-16 z-1">
+          <div className="absolute inset-x-0 top-16 z-0">
             {/* Adjust top value as needed */}
             <img
               src={confetti4}
@@ -41,7 +41,7 @@ const DailyQuestsPage = () => {
           </div>
           {/* Flex container for components */}
           <div className="flex flex-col md:flex-row justify-between gap-6">
-            <div className="flex-1 max-w-md mx-2 z-0 ">
+            <div className="flex-1 max-w-md mx-2 z-10">
               <DailyQuests />
             </div>
 
