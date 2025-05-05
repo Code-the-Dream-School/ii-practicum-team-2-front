@@ -4,7 +4,7 @@ import "./CardComponent.css";
 const CardComponent = ({ title, content, imageUrl, onClick }) => {
   return (
     <div
-      className="newResolutionCard max-w-xs rounded overflow-hidden shadow-lg bg-white"
+      className="newResolutionCard max-w-s rounded overflow-hidden shadow-lg bg-white"
       style={{ maxWidth: "250px" }}
       onClick={onClick}
       role="button"
