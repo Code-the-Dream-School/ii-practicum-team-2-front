@@ -5,6 +5,7 @@ import { NavbarTop } from "../NavbarTop";
 
 import confetti4 from "../../assets/confetti4.png";
 import DailyQuests from "../../pages/DailyQuests";
+import VisionBoard from "./../../components/dailyQuestsPage/VisionBoard";
 
 const DailyQuestsPage = () => {
   const [resolutions, setResolutions] = useState([]);
@@ -29,7 +30,6 @@ const DailyQuestsPage = () => {
               Take Small Daily Steps Toward Your Resolutions!
             </h2>
           </div>
-
           <div className="absolute inset-x-0 top-16 z-1">
             {/* Adjust top value as needed */}
             <img
@@ -39,16 +39,14 @@ const DailyQuestsPage = () => {
               style={{ opacity: 0.4 }}
             />
           </div>
-
           {/* Flex container for components */}
-          <div className="flex flex-col md:flex-row justify-center items-start space-x-0 md:space-x-4">
-            {/* <div className="flex-1 max-w-md mx-2 z-0 "> */}
+          <div className="flex flex-col md:flex-row justify-between gap-6">
             <div className="flex-1 max-w-md mx-2 z-0 ">
               <DailyQuests />
             </div>
 
             <div className="flex-1 flex flex-col mx-2 z-0">
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">
+              <h3 className="pl-2 text-2xl font-bold text-gray-800 mb-4">
                 Your Progress
               </h3>
               <div className="flex flex-row gap-4 mx-2 z-0">
@@ -70,8 +68,12 @@ const DailyQuestsPage = () => {
                   variant="small"
                 />
               </div>
+              <div className="flex flex-col mt-10 z-0">
+                <VisionBoard maxImages={8} />
+              </div>
             </div>
           </div>
+          {/* end of flex container for components */}
         </div>
       </div>
     </div>

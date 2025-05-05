@@ -4,6 +4,7 @@ import { ChevronDownIcon } from "@heroicons/react/24/outline";
 
 const ReadBooksCard = ({ resolution }) => {
   const [isExpanded, setIsExpanded] = useState(false); //set to not show expanded content by default
+  // const navigate = useNavigate();
 
   const percentage =
     resolution.booksGoal > 0
@@ -13,26 +14,44 @@ const ReadBooksCard = ({ resolution }) => {
   const toggleExpand = () => {
     setIsExpanded(!isExpanded); //To toggle the expanded state
   };
+  const handleEditClick = () => {
+    window.location.href = "/read-books-resolution-goals";
+  };
 
   return (
     <div className="custom-page">
       <div
         className="card max-w-s rounded overflow-hidden shadow-lg bg-white"
-        style={{ maxWidth: "250px", borderBottom: "8px solid #2596be" }}
+        style={{ maxWidth: "280px", borderBottom: "8px solid #2596be" }}
       >
         {/* Image */}
         <img
-          className="w-full h-36 object-cover"
+          className="w-full h-26 object-cover"
           src={readBooksIcon}
           alt="Read Books Icon"
         />
 
         <div className="px-6 py-4">
-          <h3 className="title font-bold text-2xl mb-2">
-            Read More Books
+          <h3 className="title font-bold text-2xl mb-1 flex items-center">
+            <span>Read More Books&nbsp;</span>
+            <span
+              className="flex items-center text-gray-900           cursor-pointer hover:text-blue-500"
+              onClick={handleEditClick}
+              aria-hidden="true"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24 "
+                className="hover:fill-blue-600 transition-colors"
+              >
+                <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+              </svg>
+            </span>
           </h3>
 
-          <p className="text-gray-700 font-bold text-base">
+          <p className="text-gray-700 font-bold text-base mb-0">
             Books Goal:{" "}
             <span className="font-bold">{resolution.booksGoal}</span>
           </p>
