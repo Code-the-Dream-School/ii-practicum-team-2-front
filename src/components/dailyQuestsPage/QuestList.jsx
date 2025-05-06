@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { format } from "date-fns";
 import { getFilteredQuests } from "../../util/questFilters";
@@ -21,27 +22,25 @@ const QuestList = ({ quests, selectedDay, handleToggle, openEditModal }) => {
           className="flex justify-between items-center p-2 rounded-xl border border-gray-200 shadow-sm bg-white"
         >
           <div className="flex items-center gap-2">
-            <span className="text-lg">{quest.icon}</span>
+            <span className="text-3xl">{quest.icon}</span>
             <div className="flex flex-col">
               <span
-                className={`text-xs font-medium ${
+                className={`text-m font-medium ${
                   quest.completed?.[format(selectedDay, "yyyy-MM-dd")]
                     ? "line-through text-gray-400"
-                    : "text-black"
+                    : "text-gray-800"
                 }`}
               >
                 {quest.title}
               </span>
-              <span className="text-[10px] text-gray-400">
-                {quest.frequency}
-              </span>
+              <span className="text-xs text-gray-500">{quest.frequency}</span>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
             <button
               onClick={() => handleToggle(quest.id)}
-              className={`w-5 h-5 flex items-center justify-center rounded-[6px] border-2 transition-colors ${
+              className={`w-6 h-6 flex items-center justify-center translate-y-[0.5px] rounded-[6px] border-2 transition-colors ${
                 quest.completed?.[format(selectedDay, "yyyy-MM-dd")]
                   ? "bg-indigo-600 border-indigo-600 text-white"
                   : "border-indigo-600 text-transparent"
@@ -49,7 +48,7 @@ const QuestList = ({ quests, selectedDay, handleToggle, openEditModal }) => {
             >
               {quest.completed?.[format(selectedDay, "yyyy-MM-dd")] ? (
                 <svg
-                  className="w-3 h-3"
+                  className="w-4 h-4"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="3"
@@ -62,13 +61,13 @@ const QuestList = ({ quests, selectedDay, handleToggle, openEditModal }) => {
                   />
                 </svg>
               ) : (
-                <span className="w-3 h-3" />
+                <span className="w-4 h-4" />
               )}
             </button>
 
             <button
               onClick={() => openEditModal(quest)}
-              className="text-gray-500 hover:text-gray-700 text-xl font-bold"
+              className="text-gray-500 hover:text-gray-700 text-3xl font-bold"
               title="Edit"
             >
               ⋮
@@ -81,3 +80,10 @@ const QuestList = ({ quests, selectedDay, handleToggle, openEditModal }) => {
 };
 
 export default QuestList;
+
+QuestList.propTypes = {
+  quests: PropTypes.arrayOf(PropTypes.object).isRequired,
+  selectedDay: PropTypes.instanceOf(Date).isRequired,
+  handleToggle: PropTypes.func.isRequired,
+  openEditModal: PropTypes.func.isRequired,
+};

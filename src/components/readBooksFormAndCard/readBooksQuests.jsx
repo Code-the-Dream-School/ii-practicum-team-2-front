@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import QuestModal from "../dailyQuestsPage/QuestModal";
 import AddQuestButton from "../dailyQuestsPage/AddQuestButton";
-import { ArrowPathIcon } from "@heroicons/react/24/outline";
 import ReadBooksQuestList from "./readBooksQuestList";
+import { useNavigate } from "react-router-dom";
 
 const normalizeFrequency = (freq) => {
   if (!freq) return "";
@@ -32,57 +32,16 @@ const initialQuests = [
     icon: "⏱",
     frequency: "Fridays",
   },
-  {
-    id: 115,
-    title: "Organize your bookshelf",
-    icon: "📚",
-    frequency: "Mondays, Thursdays",
-  },
-  {
-    id: 116,
-    title: "Listen to an audiobook",
-    icon: "🎧",
-    frequency: "Tuesdays",
-  },
-  {
-    id: 117,
-    title: "Visit a local library",
-    icon: "🏛️",
-    frequency: "Saturdays",
-  },
-  {
-    id: 118,
-    title: "Write a book review",
-    icon: "📝",
-    frequency: "Wednesdays, Sundays",
-  },
-  { id: 119, title: "Visit a book club", icon: "👥", frequency: "Saturdays" },
-  { id: 120, title: "Read a biography", icon: "📖", frequency: "Thursdays" },
-  {
-    id: 121,
-    title: "Find 1 new book recommendation",
-    icon: "🔍",
-    frequency: "Mondays",
-  },
-  {
-    id: 122,
-    title: "Organize your reading notes",
-    icon: "📔",
-    frequency: "Thursdays, Saturdays",
-  },
 ];
 
 function ReadBooksQuests() {
-  const [quests, setQuests] = useState(() => {
-    const shuffled = [...initialQuests].sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, 4);
-  });
+  const [quests, setQuests] = useState(initialQuests);
   const [title, setTitle] = useState("");
   const [frequency, setFrequency] = useState("Daily");
   const [icon, setIcon] = useState("💰");
   const [showModal, setShowModal] = useState(false);
   const [selectedQuestId, setSelectedQuestId] = useState(null);
-  const [successMessage, setSuccessMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleEdit = (quest) => {
     setSelectedQuestId(quest.id);
@@ -100,63 +59,29 @@ function ReadBooksQuests() {
     const savedQuests =
       JSON.parse(localStorage.getItem("readBooksQuests")) || [];
 
-    let updatedSavedQuests = [...savedQuests];
+    const questFreqKey = (quest) =>
+      `${quest.title.toLowerCase()}|${quest.icon}|${normalizeFrequency(quest.frequency)}`;
 
-    quests.forEach((quest) => {
-      const questFreq = normalizeFrequency(quest.frequency);
+    const existingKeys = new Set(savedQuests.map(questFreqKey));
+    const newQuests = quests.filter((q) => !existingKeys.has(questFreqKey(q)));
 
-      const existingIndex = updatedSavedQuests.findIndex((saved) => {
-        const savedFreq = normalizeFrequency(saved.frequency);
-        return (
-          (saved.title.toLowerCase() === quest.title.toLowerCase() ||
-            saved.title.toLowerCase().includes(quest.title.toLowerCase()) ||
-            quest.title.toLowerCase().includes(saved.title.toLowerCase())) &&
-          saved.icon === quest.icon &&
-          savedFreq === questFreq
-        );
-      });
-
-      if (existingIndex !== -1) {
-        updatedSavedQuests[existingIndex] = quest;
-      } else {
-        updatedSavedQuests.push(quest);
-      }
-    });
-
-    localStorage.setItem("readBooksQuests", JSON.stringify(updatedSavedQuests));
+    const updatedQuests = [...savedQuests, ...newQuests];
+    localStorage.setItem("readBooksQuests", JSON.stringify(updatedQuests));
 
     setQuests([]);
-    setSuccessMessage("Quests saved! Check your Daily Quests 🎯");
-    setTimeout(() => setSuccessMessage(""), 3000);
+    navigate("/daily-quests");
   };
 
   return (
     <div className="bg-[#EDEDF4] rounded-[25px] border border-gray-300 shadow-lg p-6 w-full max-w-md min-w-[350px] mx-auto">
-      <h1 className="text-2xl font-bold mb-6 text-center leading-tight max-w-[220px] mx-auto break-words">
+      <h1 className="text-2xl font-bold mb-6 text-center text-gray-800 leading-tight max-w-[300px] mx-auto break-words">
         Add daily quests to help get your resolutions!
       </h1>
-      {successMessage && (
-        <div className="text-center mb-4 text-indigo-600 font-semibold">
-          {successMessage}
-        </div>
-      )}
       <div className="w-full max-w-md">
         <div className="flex items-center justify-between mb-2">
-          <h2 className="text-sm font-semibold text-gray-700">
+          <h2 className="text-s font-semibold text-gray-500">
             Read more books
           </h2>
-          <button
-            onClick={() => {
-              const shuffled = [...initialQuests].sort(
-                () => 0.5 - Math.random(),
-              );
-              setQuests(shuffled.slice(0, 4));
-            }}
-            className="w-6 h-6 flex items-center justify-center text-gray-500 hover:opacity-70 transition"
-            title="Refresh Quests"
-          >
-            <ArrowPathIcon className="w-4 h-4" />
-          </button>
         </div>
         <div className="space-y-2 mb-4">
           {quests.length === 0 && (
@@ -183,7 +108,7 @@ function ReadBooksQuests() {
         </div>
 
         <button
-          className="mt- mx-auto px-12 py-2 bg-indigo-600 text-white rounded-full font-semibold p-2 hover:bg-blue-700 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/50 transition duration-300 ease-in-out block"
+          className="block mx-auto mt-4 px-10 py-1.5 rounded-full font-bold text-indigo-600 border-2 border-indigo-600 bg-gradient-to-r from-[#e3e8ff] to-[#e8e1f7] hover:scale-105 transition duration-300 ease-in-out shadow-md text-center"
           onClick={handleSubmit}
         >
           Submit

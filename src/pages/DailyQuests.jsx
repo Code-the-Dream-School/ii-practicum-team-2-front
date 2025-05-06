@@ -24,7 +24,7 @@ const DailyQuests = () => {
     JSON.parse(localStorage.getItem("readBooksQuests")) || [];
   const filteredDefaultQuests = filterDefaultQuests(
     defaultQuests,
-    savedBookQuests
+    savedBookQuests,
   );
 
   useEffect(() => {
@@ -48,16 +48,29 @@ const DailyQuests = () => {
                 [dateKey]: !quest.completed?.[dateKey],
               },
             }
-          : quest
-      )
+          : quest,
+      ),
     );
   };
 
   const resetModalState = (quest = null) => {
-    setSelectedQuest(quest);
-    setTitle(quest?.title || "");
-    setFrequency(quest?.frequency || "Daily");
-    setIcon(quest?.icon || "💰");
+    if (quest && quest.id !== null && quest.id !== undefined) {
+      setSelectedQuest({ ...quest });
+      setTitle(quest.title || "");
+      setFrequency(quest.frequency || "Daily");
+      setIcon(quest.icon || "💰");
+    } else {
+      const newQuest = {
+        id: null,
+        title: "",
+        frequency: "Daily",
+        icon: "💰",
+      };
+      setSelectedQuest(newQuest);
+      setTitle("");
+      setFrequency("Daily");
+      setIcon("💰");
+    }
     setShowModal(true);
   };
 
@@ -80,7 +93,7 @@ const DailyQuests = () => {
     quests,
     setQuests,
     selectedQuest,
-    setShowModal
+    setShowModal,
   );
 
   const goToToday = () => {
@@ -91,17 +104,19 @@ const DailyQuests = () => {
 
   return (
     <>
-      <div className="px-6 py-4 w-full max-w-xs mx-auto bg-gray-200 rounded-2xl shadow-md">
+      <div className="bg-[#EDEDF4] rounded-[25px] border border-gray-300 shadow-lg px-7 py-5 w-full max-w-md mx-auto">
         <div className="text-center">
-          <h1 className="text-2xl font-bold mb-1">Daily Quests</h1>
-          <p className="text-black font-semibold text-sm mb-4 mt-2">
+          <h1 className="text-3xl text-gray-800 font-bold mb-1">
+            Daily Quests
+          </h1>
+          <p className="text-gray-800 font-semibold text-s mb-4 mt-2">
             {format(selectedDay, "EEEE, MMMM d")}
           </p>
         </div>
         <div className="flex justify-center mb-4">
           <button
             onClick={goToToday}
-            className="px-5 py-2 bg-indigo-600 text-white text-xs font-semibold rounded-2xl hover:bg-blue-700 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/50 transition duration-300 ease-in-out block"
+            className="px-5 py-1 bg-indigo-600 text-white text-s font-semibold rounded-2xl hover:bg-blue-700 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/50 transition duration-300 ease-in-out block"
           >
             Today
           </button>
@@ -126,7 +141,7 @@ const DailyQuests = () => {
             openEditModal={openEditModal}
           />
         )}
-        <AddQuestButton onAddQuest={resetModalState} />
+        <AddQuestButton onAddQuest={() => resetModalState(null)} />
         <QuestModal
           isOpen={showModal}
           onClose={() => setShowModal(false)}
@@ -138,10 +153,17 @@ const DailyQuests = () => {
           setFrequency={setFrequency}
           icon={icon}
           setIcon={setIcon}
-          isEditing={!!selectedQuest}
+          isEditing={
+            selectedQuest?.id !== undefined && selectedQuest?.id !== null
+          }
+          showDeleteButton={true}
         />
         <div className="mt-8">
-          <SuggestedQuests quests={quests} setQuests={setQuests} />
+          <SuggestedQuests
+            quests={quests}
+            setQuests={setQuests}
+            openEditModal={resetModalState}
+          />
         </div>
       </div>
     </>

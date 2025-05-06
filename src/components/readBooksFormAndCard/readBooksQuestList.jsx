@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import QuestActions from "./readBooksQuestActions";
 
@@ -10,9 +11,9 @@ function ReadBooksQuestList({ quests, onEdit, onDelete }) {
           className="flex justify-between items-center p-3 rounded-xl border border-gray-200 shadow-sm bg-white max-w-[400px]"
         >
           <div className="flex items-center gap-3">
-            <span className="text-2xl">{quest.icon}</span>
+            <span className="text-3xl">{quest.icon}</span>
             <div className="flex flex-col">
-              <span className="text-sm font-medium text-black break-words max-w-[200px]">
+              <span className="text-m font-medium text-gray-800 break-words max-w-[200px]">
                 {quest.title}
               </span>
               <span className="text-xs text-gray-500">
@@ -31,5 +32,21 @@ function ReadBooksQuestList({ quests, onEdit, onDelete }) {
     </ul>
   );
 }
+
+ReadBooksQuestList.propTypes = {
+  quests: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      title: PropTypes.string.isRequired,
+      icon: PropTypes.string.isRequired,
+      frequency: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.arrayOf(PropTypes.string),
+      ]).isRequired,
+    }),
+  ).isRequired,
+  onEdit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+};
 
 export default ReadBooksQuestList;
