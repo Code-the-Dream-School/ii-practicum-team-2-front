@@ -56,7 +56,7 @@ const WellnessCard = ({ img, alt, text, href }) => (
   >
     <img src={img} alt={alt} className="w-full h-full object-cover" />
     <div className="absolute inset-0 bg-indigo-600 bg-opacity-30" />
-    <div className="absolute bottom-0 left-0 right-0 bg-indigo-600 px-2 py-2 text-white text-s font-semibold leading-snug h-[50px] flex items-center justify-center text-center break-words whitespace-normal">
+    <div className="absolute bottom-0 left-0 right-0 bg-indigo-600 px-2 py-2 text-white text-s font-semibold leading-snug h-[50px] flex items-center justify-center text-left break-words whitespace-normal">
       {text}
     </div>
   </a>
