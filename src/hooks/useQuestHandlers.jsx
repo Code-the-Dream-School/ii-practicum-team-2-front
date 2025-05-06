@@ -5,11 +5,14 @@ export const useQuestHandlers = (
   setShowModal,
 ) => {
   const handleSave = (updatedQuest) => {
+    const existingQuest = quests.find(
+      (quest) => quest.id === selectedQuest?.id,
+    );
     let updatedQuests;
 
-    if (selectedQuest) {
+    if (existingQuest) {
       updatedQuests = quests.map((quest) =>
-        quest.id === selectedQuest.id ? updatedQuest : quest,
+        quest.id === selectedQuest.id ? { ...quest, ...updatedQuest } : quest,
       );
     } else {
       updatedQuests = [

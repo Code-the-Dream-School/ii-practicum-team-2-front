@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 function QuestActions({ onEdit, onDelete }) {
@@ -40,5 +41,10 @@ function QuestActions({ onEdit, onDelete }) {
     </div>
   );
 }
+
+QuestActions.propTypes = {
+  onEdit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+};
 
 export default QuestActions;

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 //import NavbarTopDailyQuestsLoggedIn from "../dailyQuestsPage/NavbarTopDailyQuestsLoggedIn";
 import ReadBooksCard from "../readBooksFormAndCard/ReadBooksCard";
+import WellnessTips from "../dailyQuestsPage/WellnessTips";
 import { NavbarTop } from "../NavbarTop";
-
 import confetti4 from "../../assets/confetti4.png";
 import DailyQuests from "../../pages/DailyQuests";
 import VisionBoard from "./../../components/dailyQuestsPage/VisionBoard";
@@ -19,19 +19,18 @@ const DailyQuestsPage = () => {
   const resolutionsToDisplay = resolutions;
 
   return (
-    <div>
-      {/* <NavbarTopDailyQuestsLoggedIn /> */}
+    <>
       <NavbarTop />
       <div className="min-h-[160vh] bg-gray-100 px-6 py-6 pt-12">
         <div className="max-w-screen-xl mx-auto px-6 mb-8">
-          {/* Title for My Resolutions */}
+          {/* Title */}
           <div className="flex justify-center mb-4">
             <h2 className="text-4xl font-bold text-gray-800 text-center pb-4">
               Take Small Daily Steps Toward Your Resolutions!
             </h2>
           </div>
+
           <div className="absolute inset-x-0 top-16 z-0">
-            {/* Adjust top value as needed */}
             <img
               src={confetti4}
               alt="Confetti"
@@ -39,7 +38,7 @@ const DailyQuestsPage = () => {
               style={{ opacity: 0.4 }}
             />
           </div>
-          {/* Flex container for components */}
+
           <div className="flex flex-col md:flex-row justify-between gap-6">
             <div className="flex-1 max-w-md mx-2 z-10">
               <DailyQuests />
@@ -57,7 +56,6 @@ const DailyQuestsPage = () => {
                 ) : (
                   <p>No resolutions added yet!</p>
                 )}
-                {/* filler card */}
                 <ReadBooksCard
                   resolution={{
                     booksGoal: 0,
@@ -70,13 +68,13 @@ const DailyQuestsPage = () => {
               </div>
               <div className="flex flex-col mt-10 z-0">
                 <VisionBoard maxImages={8} />
+                <WellnessTips />
               </div>
             </div>
           </div>
-          {/* end of flex container for components */}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -1,9 +1,16 @@
 import React, { useState, useRef, useEffect } from "react";
+import PropTypes from "prop-types";
 
 const iconOptions = [
   "💧",
   "🧘",
   "🚶‍♂️",
+  "🪥",
+  "🧴",
+  "🧺",
+  "💻",
+  "🧂",
+  "☀️",
   "🥗",
   "😴",
   "🏃‍♂️",
@@ -162,23 +169,23 @@ const QuestModal = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30">
       <div
-        className="bg-white rounded-lg p-3 w-full max-w-sm shadow-xl relative"
+        className="bg-white rounded-2xl p-5 w-full max-w-md shadow-xl relative"
         ref={iconPickerRef}
       >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl"
+          className="absolute top-1 right-3 text-gray-500 hover:text-gray-600 text-2xl"
           aria-label="Close"
         >
           ×
         </button>
 
-        <h2 className="text-base font-semibold mb-4 text-center">
+        <h2 className="text-2xl font-semibold mb-4 text-center">
           {isEditing ? "Edit Quest" : "Add Quest"}
         </h2>
 
         <div className="mb-2">
-          <label className="block text-xs font-medium mb-1.5">Quest</label>
+          <label className="block text-md font-medium mb-2">Quest</label>
           <div
             className="flex items-center gap-2 w-full border border-gray-300 rounded px-1 py-0 cursor-text hover:bg-gray-50"
             onClick={() => setShowIconPicker(false)}
@@ -188,14 +195,14 @@ const QuestModal = ({
                 e.stopPropagation();
                 setShowIconPicker((prev) => !prev);
               }}
-              className="text-lg hover:scale-110 transition"
+              className="text-xl hover:scale-110 transition"
               title="Choose icon"
             >
               {icon || "💰"}
             </button>
             <input
               type="text"
-              className="flex-1 focus:outline-none bg-transparent text-gray-800 text-xs"
+              className="flex-1 focus:outline-none bg-transparent text-gray-800 text-sm"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Enter quest name"
@@ -233,28 +240,28 @@ const QuestModal = ({
         </div>
 
         <div className="mb-2">
-          <label className="block text-xs font-medium mb-1.5">
+          <label className="block text-s font-medium mb-2">
             Repeat Frequency
           </label>
           <div className="flex flex-col gap-2">
             <label className="flex items-center gap-2">
               <input
                 type="checkbox"
-                className="accent-indigo-600 w-3 h-3"
+                className="accent-indigo-600 w-4 h-4"
                 checked={repeatDays.includes("Daily")}
                 onChange={() => handleToggleDay("Daily")}
               />
-              <span className="text-xs">Daily</span>
+              <span className="text-sm">Daily</span>
             </label>
             {weekDays.map((day) => (
               <label key={day} className="flex items-center gap-2">
                 <input
                   type="checkbox"
-                  className="accent-indigo-600 w-3 h-3"
+                  className="accent-indigo-600 w-4 h-4"
                   checked={repeatDays.includes(day)}
                   onChange={() => handleToggleDay(day)}
                 />
-                <span className="text-xs">{day}</span>
+                <span className="text-sm">{day}</span>
               </label>
             ))}
           </div>
@@ -264,14 +271,14 @@ const QuestModal = ({
           {isEditing && showDeleteButton && (
             <button
               onClick={onDelete}
-              className="px-2.5 py-1 rounded-full border border-red-300 text-red-600 hover:bg-red-50 text-xs"
+              className="px-5 py-2 rounded-full border border-red-300 text-red-600 hover:bg-red-50 text-sm"
             >
               Delete
             </button>
           )}
           <button
             onClick={handleSaveClick}
-            className="px-5 py-2 bg-indigo-600 text-white text-xs font-semibold rounded-2xl hover:bg-blue-700 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/50 transition duration-300 ease-in-out block"
+            className="px-5 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-full hover:bg-blue-700 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/50 transition duration-300 ease-in-out block"
           >
             Save
           </button>
@@ -282,3 +289,18 @@ const QuestModal = ({
 };
 
 export default QuestModal;
+
+QuestModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  onDelete: PropTypes.func,
+  title: PropTypes.string.isRequired,
+  setTitle: PropTypes.func.isRequired,
+  frequency: PropTypes.string.isRequired,
+  setFrequency: PropTypes.func.isRequired,
+  icon: PropTypes.string.isRequired,
+  setIcon: PropTypes.func.isRequired,
+  isEditing: PropTypes.bool,
+  showDeleteButton: PropTypes.bool,
+};
