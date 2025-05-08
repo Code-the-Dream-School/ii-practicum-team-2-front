@@ -25,10 +25,29 @@ export const clearUserData = () => {
 };
 
 export const setTokens = ({ access_token, refresh_token, user }) => {
-  localStorage.setItem("access_token", access_token);
-  localStorage.setItem("refresh_token", refresh_token);
-  if (user) {
-    setUserData(user);
+  try {
+    if (!access_token || !refresh_token) {
+      console.error('Missing tokens in setTokens');
+      return false;
+    }
+    localStorage.setItem('access_token', access_token);
+    localStorage.setItem('refresh_token', refresh_token);
+    if (user) {
+      localStorage.setItem('user', JSON.stringify({
+        id: user.id,
+        name: user.name,
+        email: user.email
+      }));
+    }
+    console.log('Auth data stored successfully:', {
+      access_token: !!access_token,
+      refresh_token: !!refresh_token,
+      user: !!user
+    });
+    return true;
+  } catch (error) {
+    console.error('Error storing auth data:', error);
+    return false;
   }
 };
 

@@ -4,7 +4,6 @@ import { useLogin } from "../hooks/useLogin";
 import { useForgotPassword } from "../hooks/useForgotPassword";
 import DOMPurify from "dompurify";
 import toast from "react-hot-toast";
-
 const SignInForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,21 +23,23 @@ const SignInForm = () => {
     },
   });
   const navigate = useNavigate();
-
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     try {
-      const sanitizedEmail = DOMPurify.sanitize(email);
+      const sanitizedEmail = DOMPurify.sanitize(email.trim());
       const sanitizedPassword = DOMPurify.sanitize(password);
-      await login({ email: sanitizedEmail, password: sanitizedPassword });
-      toast.success("Signed in successfully!");
-      navigate("/daily-quests");
+      // Clear any existing tokens before login attempt
+      localStorage.clear();
+      await login({
+        email: sanitizedEmail,
+        password: sanitizedPassword,
+      });
+      // Navigation is handled in useLogin
     } catch (error) {
-      console.error("Login error:", error);
+      console.error("Login submission error:", error);
       toast.error(error.message || "Failed to sign in");
     }
   };
-
   const handleForgotPasswordSubmit = async (e) => {
     e.preventDefault();
     setForgotMessage("");
@@ -46,7 +47,6 @@ const SignInForm = () => {
     const sanitizedEmail = DOMPurify.sanitize(forgotEmail);
     requestReset({ email: sanitizedEmail });
   };
-
   const handleResend = async (e) => {
     e.preventDefault();
     if (!forgotEmail) {
@@ -56,14 +56,12 @@ const SignInForm = () => {
     }
     handleForgotPasswordSubmit(e);
   };
-
   const switchToLogin = () => {
     setIsForgotPassword(false);
     setForgotEmail("");
     setForgotMessage("");
     setForgotError("");
   };
-
   if (isForgotPassword) {
     return (
       <div className="fixed inset-0 flex items-center justify-center p-4 bg-white z-10">
@@ -84,7 +82,6 @@ const SignInForm = () => {
               Enter your email to reset the password
             </p>
           </div>
-
           <form
             onSubmit={handleForgotPasswordSubmit}
             className="space-y-3 text-left"
@@ -95,7 +92,6 @@ const SignInForm = () => {
             {forgotError && (
               <div className="text-red-500 text-sm">{forgotError}</div>
             )}
-
             <div>
               <label
                 className="block text-sm font-medium text-gray-700 mb-1"
@@ -115,7 +111,6 @@ const SignInForm = () => {
                 required
               />
             </div>
-
             <button
               type="submit"
               className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition"
@@ -124,7 +119,6 @@ const SignInForm = () => {
               {isRequestLoading ? "Sending..." : "Send Reset Link"}
             </button>
           </form>
-
           <div className="mt-4 text-center">
             <p className="text-sm text-gray-600">
               Did not receive the email?{" "}
@@ -151,14 +145,12 @@ const SignInForm = () => {
       </div>
     );
   }
-
   return (
     <div className="fixed inset-0 flex items-center justify-center p-4 bg-white z-10">
       <div className="bg-white rounded-[25px] border border-gray-300 shadow-lg p-6 pb-6 w-[450px]">
         <div className="flex flex-col items-center mb-4">
           <h2 className="text-2xl font-bold text-gray-800">Sign In</h2>
         </div>
-
         <form onSubmit={handleLoginSubmit} className="space-y-3 text-left">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -176,7 +168,6 @@ const SignInForm = () => {
               required
             />
           </div>
-
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Password
@@ -193,11 +184,9 @@ const SignInForm = () => {
               required
             />
           </div>
-
           {loginError && (
             <div className="text-red-500 text-sm">{loginError}</div>
           )}
-
           <div className="flex justify-between items-center mb-4">
             <label className="flex items-center">
               <input
@@ -216,7 +205,6 @@ const SignInForm = () => {
               Forgot password?
             </button>
           </div>
-
           <button
             type="submit"
             className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition mb-0"
@@ -225,7 +213,6 @@ const SignInForm = () => {
             {loginLoading ? "Logging in..." : "Login"}
           </button>
         </form>
-
         <div className="mt-6">
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
@@ -237,7 +224,6 @@ const SignInForm = () => {
               </span>
             </div>
           </div>
-
           <div className="mt-4 flex justify-center">
             <button
               className="flex items-center justify-center w-full p-3 border border-gray-300 rounded-lg hover:bg-gray-100 transition"
@@ -256,5 +242,4 @@ const SignInForm = () => {
     </div>
   );
 };
-
 export default SignInForm;
