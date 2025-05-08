@@ -40,20 +40,20 @@ export const fetchWithAuth = async (url, refreshToken, options = {}) => {
       });
     };
   
-    // Make the initial API call
+  
     let response = await fetchWithToken(token);
   
-    // If the response is 401 (Unauthorized), refresh the token and retry
+    // If the response is 401 (Unauthorized), refreshes the token
     if (response.status === 401) {
-      await refreshToken(); // Refresh the token
-      token = localStorage.getItem("access_token"); // Get the new token
-      response = await fetchWithToken(token); // Retry the API call
+      await refreshToken(); 
+      token = localStorage.getItem("access_token"); 
+      response = await fetchWithToken(token); 
     }
   
-    // Check if the second attempt also failed
+    
     if (!response.ok) {
       throw new Error(`Error: ${response.status} ${response.statusText}`);
     }
   
-    return response.json(); // Parse and return the JSON response
+    return response.json(); 
   };
