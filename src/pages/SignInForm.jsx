@@ -28,13 +28,11 @@ const SignInForm = () => {
     try {
       const sanitizedEmail = DOMPurify.sanitize(email.trim());
       const sanitizedPassword = DOMPurify.sanitize(password);
-      // Clear any existing tokens before login attempt
       localStorage.clear();
       await login({
         email: sanitizedEmail,
         password: sanitizedPassword,
       });
-      // Navigation is handled in useLogin
     } catch (error) {
       console.error("Login submission error:", error);
       toast.error(error.message || "Failed to sign in");

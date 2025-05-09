@@ -16,15 +16,12 @@ export function useLogin({ onError, onSuccess } = {}) {
     },
     onSuccess: (data) => {
       const { user, access_token, refresh_token } = data;
-      // Store tokens and user data
       const stored = setTokens({ access_token, refresh_token, user });
       if (!stored) {
         throw new Error("Failed to store authentication data");
       }
-      // Update React Query cache
       queryClient.setQueryData(["user"], user);
       toast.success("Logged in successfully!");
-      // Call onSuccess callback if provided
       if (onSuccess) onSuccess();
       navigate("/daily-quests");
     },
