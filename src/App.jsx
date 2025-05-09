@@ -5,14 +5,21 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Home from "./pages/Home";
 import SignUpForm from "./pages/SignUpForm";
 import SignInForm from "./pages/SignInForm";
-// import AddResolutionForm from "./AddResolutionForm";
 import NewResolutions from "./components/chooseNewResopage/NewResolutionsPage";
 import DailyQuests from "./pages/DailyQuests";
 import MyResolutions from "./components/myResolutionsPage/MyResolutionsPage";
 import ReadBooksResolutionGoalsInput from "./components/readBooksResolutionGoalsInputPage/ReadBooksResolutionGoalsInputPage";
 import DailyQuestsPage from "./components/dailyQuestsPage/DailyQuestPage";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      refetchOnWindowFocus: false,
+      staleTime: 5 * 60 * 1000,
+    },
+  },
+});
 class ErrorBoundary extends Component {
   state = { error: null, errorInfo: null };
 
@@ -44,7 +51,7 @@ class ErrorBoundary extends Component {
 function App() {
   const [message, setMessage] = useState("");
   const [resolutions, setResolutions] = useState([]);
-return (
+  return (
     <QueryClientProvider client={queryClient}>
       <Router>
         <Toaster position="top-center" reverseOrder={false} />
