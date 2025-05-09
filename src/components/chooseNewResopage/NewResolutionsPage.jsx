@@ -16,31 +16,40 @@ function NewResolutions() {
   const { refreshToken } = useRefreshToken();
 
   useEffect(() => {
-    const loadGoalTypes = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-
-        const data = await fetchGoalTypes();
-        setGoalTypes(data);
-      } catch (err) {
-        if (err.message.includes("401")) {
-          try {
-            await refreshToken();
-            const data = await fetchGoalTypes();
-            setGoalTypes(data);
-          } catch (refreshError) {
-            setError("Session expired. Please log in again.");
-          }
-        } else {
-          setError(err.message || "Failed to fetch goal types.");
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadGoalTypes();
+    const cachedGoalTypes = localStorage.getItem("goalTypes");
+    if (cachedGoalTypes) {
+      setGoalTypes(JSON.parse(cachedGoalTypes));
+      setLoading(false);
+    } else {
+      loadGoalTypes();
+    }
   }, []);
+
+  const loadGoalTypes = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const data = await fetchGoalTypes();
+      localStorage.setItem("goalTypes", JSON.stringify(data));
+      setGoalTypes(data);
+    } catch (err) {
+      if (err.message.includes("401")) {
+        try {
+          await refreshToken();
+          const data = await fetchGoalTypes();
+          localStorage.setItem("goalTypes", JSON.stringify(data));
+          setGoalTypes(data);
+        } catch (refreshError) {
+          setError("Session expired. Please log in again.");
+        }
+      } else {
+        setError(err.message || "Failed to fetch goal types.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleCardClick = (title) => {
     if (title === "Read more books") {
