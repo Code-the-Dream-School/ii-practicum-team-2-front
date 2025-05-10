@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-//import NavbarTopDailyQuestsLoggedIn from "../dailyQuestsPage/NavbarTopDailyQuestsLoggedIn";
-import ReadBooksCard from "../readBooksFormAndCard/ReadBooksCard";
+import ReadBooksCard from "../readBooksFormAndCard/readBooksCard";
 import WellnessTips from "../dailyQuestsPage/WellnessTips";
 import { NavbarTop } from "../NavbarTop";
 import confetti4 from "../../assets/confetti4.png";

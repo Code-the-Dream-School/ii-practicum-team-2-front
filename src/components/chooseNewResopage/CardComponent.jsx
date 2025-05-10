@@ -1,4 +1,5 @@
-import React from "react";
+// import React from "react";
+//New Resolution Card Component;
 import "./CardComponent.css";
 
 const CardComponent = ({ title, content, imageUrl, onClick }) => {
