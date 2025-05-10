@@ -45,7 +45,7 @@ const ReadBooksCard = ({ resolution, onEdit, onDelete }) => {
         }}
       >
         {/* Image */}
-        <div className="image-container relative w-full h-40 overflow-hidden">
+        <div className="image-container relative w-full h-30 overflow-hidden">
           <img
             className="w-full h-26 object-cover"
             src={readBooksIcon}
@@ -95,7 +95,7 @@ const ReadBooksCard = ({ resolution, onEdit, onDelete }) => {
         </div>
 
         <div className="px-5 py-2">
-          <h3 className="title font-bold text-2xl mb-1 flex items-center">
+          <h3 className="title font-bold text-2xl text-gray-800 mb-1 flex items-center">
             <span>Read More Books&nbsp;</span>
           </h3>
 
