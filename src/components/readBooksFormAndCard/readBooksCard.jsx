@@ -1,7 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import readBooksIcon from "../../assets/readBooksIcon.png";
-import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
+import {
+  EllipsisVerticalIcon,
+  PencilSquareIcon,
+  TrashIcon,
+} from "@heroicons/react/24/solid";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 
 const ReadBooksCard = ({ resolution, onEdit, onDelete }) => {
@@ -20,9 +24,7 @@ const ReadBooksCard = ({ resolution, onEdit, onDelete }) => {
   const toggleExpand = () => {
     setIsExpanded(!isExpanded); //To toggle the expanded state
   };
-  // const handleEditClick = () => {
-  //   window.location.href = "/read-books-resolution-goals";
-  // };
+
   const handleEditClick = () => {
     navigate("/read-books-resolution-goals");
   };
@@ -51,7 +53,7 @@ const ReadBooksCard = ({ resolution, onEdit, onDelete }) => {
           />
           {(hovered || showMenu) && (
             <div
-              className="dots-button absolute top-2 right-2 flex justify-center items-center h-8 w-8 bg-gray-400 text-white rounded-full font-bold text-xl cursor-pointer"
+              className="dots-button absolute top-2 right-2 flex justify-center items-center h-8 w-8 bg-gray-900 bg-opacity-50 text-white rounded-full font-bold text-xl cursor-pointer"
               onClick={(e) => {
                 e.stopPropagation();
                 setShowMenu((prev) => !prev);
@@ -59,7 +61,14 @@ const ReadBooksCard = ({ resolution, onEdit, onDelete }) => {
               aria-label="More options"
               title="More options"
             >
-              &#8942;
+              <EllipsisVerticalIcon
+                className="w-7 h-7 text-white"
+                style={{
+                  stroke: "white",
+                  strokeWidth: "1",
+                  fill: "white",
+                }}
+              />
             </div>
           )}
           {showMenu && (
@@ -85,7 +94,7 @@ const ReadBooksCard = ({ resolution, onEdit, onDelete }) => {
           )}
         </div>
 
-        <div className="px-6 py-4">
+        <div className="px-5 py-2">
           <h3 className="title font-bold text-2xl mb-1 flex items-center">
             <span>Read More Books&nbsp;</span>
           </h3>
