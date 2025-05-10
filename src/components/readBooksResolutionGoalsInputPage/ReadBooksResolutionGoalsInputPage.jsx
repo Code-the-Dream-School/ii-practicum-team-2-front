@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-//import NavbarTopnewResoLoggedIn from "../chooseNewResopage/NavbarTopnewResoLoggedIn";
 import ReadBooksForm from "../readBooksFormAndCard/ReadBooksForm";
 import ReadBooksQuests from "../readBooksFormAndCard/readBooksQuests";
 import confetti4 from "../../assets/confetti4.png";
 import { NavbarTop } from "../NavbarTop";
+
 const ReadBooksApp = () => {
   const [resolutions, setResolutions] = useState([]);
 
@@ -25,7 +25,6 @@ const ReadBooksApp = () => {
           </div> */}
 
           <div className="absolute inset-x-0 top-16 z-1">
-            {/* Adjust top value as needed */}
             <img
               src={confetti4}
               alt="Confetti"

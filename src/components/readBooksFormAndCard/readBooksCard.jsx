@@ -1,10 +1,20 @@
-import React, { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import readBooksIcon from "../../assets/readBooksIcon.png";
+import {
+  EllipsisVerticalIcon,
+  PencilSquareIcon,
+  TrashIcon,
+} from "@heroicons/react/24/solid";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 
-const ReadBooksCard = ({ resolution }) => {
-  const [isExpanded, setIsExpanded] = useState(false); //set to not show expanded content by default
-  // const navigate = useNavigate();
+const ReadBooksCard = ({ resolution, onEdit, onDelete }) => {
+  const [isExpanded, setIsExpanded] = useState(false); //set to not show expanded content by default;
+  const [hovered, setHovered] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
+  const menuRef = useRef();
+
+  const navigate = useNavigate();
 
   const percentage =
     resolution.booksGoal > 0
@@ -14,8 +24,13 @@ const ReadBooksCard = ({ resolution }) => {
   const toggleExpand = () => {
     setIsExpanded(!isExpanded); //To toggle the expanded state
   };
+
   const handleEditClick = () => {
-    window.location.href = "/read-books-resolution-goals";
+    navigate("/read-books-resolution-goals");
+  };
+
+  const handleDeleteClick = () => {
+    onDelete && onDelete();
   };
 
   return (
@@ -23,32 +38,65 @@ const ReadBooksCard = ({ resolution }) => {
       <div
         className="card max-w-s rounded overflow-hidden shadow-lg bg-white"
         style={{ maxWidth: "280px", borderBottom: "8px solid #2596be" }}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => {
+          setHovered(false);
+          if (!showMenu) setShowMenu(false);
+        }}
       >
         {/* Image */}
-        <img
-          className="w-full h-26 object-cover"
-          src={readBooksIcon}
-          alt="Read Books Icon"
-        />
-
-        <div className="px-6 py-4">
-          <h3 className="title font-bold text-2xl mb-1 flex items-center">
-            <span>Read More Books&nbsp;</span>
-            <span
-              className="flex items-center text-gray-900           cursor-pointer hover:text-blue-500"
-              onClick={handleEditClick}
-              aria-hidden="true"
+        <div className="image-container relative w-full h-30 overflow-hidden">
+          <img
+            className="w-full h-26 object-cover"
+            src={readBooksIcon}
+            alt="Read Books Icon"
+          />
+          {(hovered || showMenu) && (
+            <div
+              className="dots-button absolute top-2 right-2 flex justify-center items-center h-8 w-8 bg-gray-900 bg-opacity-50 text-white rounded-full font-bold text-xl cursor-pointer"
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowMenu((prev) => !prev);
+              }}
+              aria-label="More options"
+              title="More options"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24 "
-                className="hover:fill-blue-600 transition-colors"
+              <EllipsisVerticalIcon
+                className="w-7 h-7 text-white"
+                style={{
+                  stroke: "white",
+                  strokeWidth: "1",
+                  fill: "white",
+                }}
+              />
+            </div>
+          )}
+          {showMenu && (
+            <div
+              className="menu-popup absolute top-12 right-4 bg-white border rounded-lg shadow-lg p-2"
+              ref={menuRef}
+            >
+              <button
+                onClick={handleEditClick}
+                className="flex items-center p-2 text-gray-700 hover:bg-gray-100 rounded"
               >
-                <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
-              </svg>
-            </span>
+                <PencilSquareIcon className="w-5 h-5 mr-2 text-gray-600" />
+                Edit
+              </button>
+              <button
+                onClick={handleDeleteClick}
+                className="flex items-center p-2 text-sm text-gray-700 hover:bg-gray-100 rounded"
+              >
+                <TrashIcon className="w-5 h-5 mr-2 text-gray-600" />
+                Delete
+              </button>
+            </div>
+          )}
+        </div>
+
+        <div className="px-5 py-2">
+          <h3 className="title font-bold text-2xl text-gray-800 mb-1 flex items-center">
+            <span>Read More Books&nbsp;</span>
           </h3>
 
           <p className="text-gray-700 font-bold text-base mb-0">
@@ -91,14 +139,14 @@ const ReadBooksCard = ({ resolution }) => {
             </span> */}
             <div className="flex justify-center">
               <ChevronDownIcon
-                className={`h-5 w-5 transition-transform ${
+                className={`h-6 w-6 transition-transform ${
                   isExpanded ? "rotate-180" : ""
                 }`}
-                style={{ strokeWidth: 5, transition: "transform 0.3s ease" }}
+                style={{ strokeWidth: 4, transition: "transform 0.3s ease" }}
                 aria-hidden="true"
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = "translateY(7px)";
-                  e.currentTarget.style.stroke = "#2596be";
+                  e.currentTarget.style.stroke = "#2790b5";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = "translateY(0)";
