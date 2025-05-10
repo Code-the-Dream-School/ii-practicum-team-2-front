@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CardComponent from "./CardComponent";
 import { NavbarTop } from "../NavbarTop";
 import readBooksIcon from "../../assets/readBooksIcon.png";
 import fireworkImage from "../../assets/fireworks1.png";
 import defaultIcon from "../../../src/assets/books.png"; // Default icon for other cards
-import { useRefreshToken } from "../../api/api-calls";
-import { fetchGoalTypes } from "../../api/api-calls";
+import { fetchGoalTypes, useRefreshToken } from "../../api/api-calls";
+// import { fetchGoalTypes } from "../../api/api-calls";
 
 function NewResolutions() {
   const navigate = useNavigate();
