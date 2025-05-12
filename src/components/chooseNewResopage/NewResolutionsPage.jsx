@@ -2,11 +2,16 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CardComponent from "./CardComponent";
 import { NavbarTop } from "../NavbarTop";
-import readBooksIcon from "../../assets/readBooksIcon.png";
 import fireworkImage from "../../assets/fireworks1.png";
 import defaultIcon from "../../../src/assets/books.png"; // Default icon for other cards
 import { fetchGoalTypes, useRefreshToken } from "../../api/api-calls";
-// import { fetchGoalTypes } from "../../api/api-calls";
+import readMoreIcon from "../../assets/icons/readMoreIcon1.png"; 
+import sleepMoreIcon from "../../assets/icons/sleepMoreIcon1.png"; 
+import loseWeightIcon from "../../assets/icons/loseWeightIcon1.png"; 
+import journalIcon from "../../assets/icons/journalIcon1.png"; 
+import studyIcon from "../../assets/icons/studyIcon1.png"; 
+import customResoIcon from "../../assets/icons/customResoIcon1.png"; 
+
 
 function NewResolutions() {
   const navigate = useNavigate();
@@ -111,7 +116,17 @@ function NewResolutions() {
                 title={goal.name}
                 content={goal.description || "No description available"}
                 imageUrl={
-                  goal.name === "Read more books" ? readBooksIcon : defaultIcon
+                  goal.name === "Read more books" ? readMoreIcon : 
+                  goal.name === "Sleep more" 
+                  ? sleepMoreIcon : 
+                  goal.name === "Lose Weight" 
+                  ? loseWeightIcon :
+                  goal.name === "Journal" 
+                  ? journalIcon : 
+                  goal.name === "Study" 
+                  ? studyIcon :
+                  goal.name === "Create Custom Goal" 
+                  ? customResoIcon : defaultIcon
                 }
                 onClick={() => handleCardClick(goal.name)}
               />

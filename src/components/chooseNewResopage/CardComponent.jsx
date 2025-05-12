@@ -17,7 +17,7 @@ const CardComponent = ({ title, content, imageUrl, onClick }) => {
       {/* Image */}
       {imageUrl && (
         <img
-          className="w-full h-40 object-cover"
+          className="w-full h-38"
           src={imageUrl}
           alt="Card Image"
         />
