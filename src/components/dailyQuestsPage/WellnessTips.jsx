@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import waterImg from "../../assets/water.png";
 import meditationImg from "../../assets/meditation.png";
@@ -61,6 +62,13 @@ const WellnessCard = ({ img, alt, text, href }) => (
     </div>
   </a>
 );
+
+WellnessCard.propTypes = {
+  img: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  href: PropTypes.string.isRequired,
+};
 
 const WellnessTips = () => {
   return (

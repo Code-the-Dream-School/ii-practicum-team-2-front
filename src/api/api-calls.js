@@ -79,3 +79,83 @@ export const fetchGoalTypes = async () => {
     );
   }
 };
+
+
+// Get all daily quests
+export const fetchDailyQuests = async (refreshToken) => {
+  return fetchWithAuth("/daily-quests", refreshToken);
+};
+
+// Create a daily quest
+export const createDailyQuest = async (data, refreshToken) => {
+  return fetchWithAuth("/daily-quests", refreshToken, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+};
+
+// Get daily quests for a given date
+export const fetchDailyQuestsByDate = async (date, refreshToken) => {
+  const url = `/daily-quests/for-date?date=${encodeURIComponent(date)}`;
+  return fetchWithAuth(url, refreshToken);
+};
+
+// Get daily quest by ID
+export const getDailyQuestById = async (id, refreshToken) => {
+  return fetchWithAuth(`/daily-quests/${id}`, refreshToken);
+};
+
+// Update daily quest
+export const updateDailyQuest = async (id, data, refreshToken) => {
+  return fetchWithAuth(`/daily-quests/${id}`, refreshToken, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+};
+
+// Delete daily quest
+export const deleteDailyQuest = async (id, refreshToken) => {
+  return fetchWithAuth(`/daily-quests/${id}`, refreshToken, {
+    method: "DELETE",
+  });
+};
+
+// Toggle completion of a daily quest
+export const toggleDailyQuest = async (id, refreshToken) => {
+  return fetchWithAuth(`/daily-quests/${id}/toggle`, refreshToken, {
+    method: "POST",
+  });
+};
+
+
+// Create new daily quest suggestion (admin)
+export const createDailyQuestSuggestion = async (data, refreshToken) => {
+  return fetchWithAuth("/daily-quests/suggestions", refreshToken, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+};
+
+// Get daily quest suggestion by ID
+export const getDailyQuestSuggestionById = async (id, refreshToken) => {
+  return fetchWithAuth(`/daily-quests/suggestions/${id}`, refreshToken);
+};
+
+// Update daily quest suggestion (admin)
+export const updateDailyQuestSuggestion = async (id, data, refreshToken) => {
+  return fetchWithAuth(`/daily-quests/suggestions/${id}`, refreshToken, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+};
+
+// Delete daily quest suggestion (admin)
+export const deleteDailyQuestSuggestion = async (id, refreshToken) => {
+  return fetchWithAuth(`/daily-quests/suggestions/${id}`, refreshToken, {
+    method: "DELETE",
+  });
+};

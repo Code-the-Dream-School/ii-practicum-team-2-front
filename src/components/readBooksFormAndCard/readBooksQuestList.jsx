@@ -13,7 +13,7 @@ function ReadBooksQuestList({ quests, onEdit, onDelete }) {
           <div className="flex items-center gap-3">
             <span className="text-3xl">{quest.icon}</span>
             <div className="flex flex-col">
-              <span className="text-m font-medium text-gray-800 break-words max-w-[200px]">
+              <span className="text-m font-medium text-gray-800 break-words max-w-[230px]">
                 {quest.title}
               </span>
               <span className="text-xs text-gray-500">
