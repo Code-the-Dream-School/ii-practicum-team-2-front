@@ -2,6 +2,8 @@
 import { useMutation } from "@tanstack/react-query";
 import api from "../util/auth";
 
+const BASE_URL = "http://localhost:8000/api/v1";
+
 export function useRefreshToken() {
   const {
     mutateAsync: refreshToken,
@@ -40,7 +42,7 @@ export const fetchWithAuth = async (url, refreshToken, options = {}) => {
   let token = localStorage.getItem("access_token");
 
   const fetchWithToken = async (token) => {
-    return fetch(url, {
+    return fetch(`${BASE_URL}${url}`, {
       ...options,
       headers: {
         ...options.headers,
