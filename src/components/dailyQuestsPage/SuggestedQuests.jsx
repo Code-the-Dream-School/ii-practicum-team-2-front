@@ -1,19 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useState } from "react";
-import {
-  EyeIcon,
-  EyeSlashIcon,
-  ArrowPathIcon,
-} from "@heroicons/react/24/outline";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { useSuggestions } from "../../hooks/useSuggestions";
 function SuggestedQuests({ quests, setQuests, openEditModal }) {
   const [showSuggestions, setShowSuggestions] = useState(true);
-  const { suggestions, isLoading, error, refetch } = useSuggestions();
+  const { suggestions, isLoading, error } = useSuggestions();
 
   const filteredSuggestions =
     suggestions?.filter(
-      (suggestion) => !quests.some((quest) => quest.title === suggestion.title)
+      (suggestion) => !quests.some((quest) => quest.title === suggestion.title),
     ) || [];
   return (
     <div className="py-4 w-full mx-auto bg-transparent">
@@ -33,13 +29,6 @@ function SuggestedQuests({ quests, setQuests, openEditModal }) {
             ) : (
               <EyeSlashIcon className="w-5 h-5" />
             )}
-          </button>
-          <button
-            onClick={refetch}
-            className="w-6 h-6 flex items-center justify-center text-gray-500 hover:opacity-70 transition"
-            aria-label="Refresh Suggestions"
-          >
-            <ArrowPathIcon className="w-5 h-5" />
           </button>
         </div>
       </div>
@@ -83,10 +72,12 @@ function SuggestedQuests({ quests, setQuests, openEditModal }) {
                         };
                         setQuests((prev) => [...prev, newQuest]);
                       }}
-                      className="w-6 h-6 flex items-center justify-center translate-y-[0.5px] rounded-[6px] border-2 border-indigo-600 bg-indigo-600 text-white hover:bg-indigo-700 transition-colors"
+                      className="w-6 h-6 flex items-center justify-center translate-y-[1.5px] rounded-[6px] border-2 border-indigo-600 bg-indigo-600 text-white hover:bg-indigo-700 hover:border-indigo-700 transition-colors"
                       title="Add"
                     >
-                      <span className="text-lg font-bold leading-none">+</span>
+                      <span className="text-lg font-bold leading-none translate-y-[-1px]">
+                        +
+                      </span>
                     </button>
                     <button
                       onClick={() => openEditModal(suggestion)}

@@ -32,6 +32,30 @@ const initialQuests = [
     icon: "⏱",
     frequency: "Fridays",
   },
+  {
+    id: 115,
+    title: "Visit a Local Library",
+    icon: "🏛️",
+    frequency: "Saturdays",
+  },
+  {
+    id: 116,
+    title: "Write a Book Review",
+    icon: "📝",
+    frequency: "Sundays",
+  },
+  {
+    id: 117,
+    title: "Listen to an audiobook",
+    icon: "🎧",
+    frequency: "Thursdays",
+  },
+  {
+    id: 118,
+    title: "Visit a book club",
+    icon: "📚",
+    frequency: "Tuesdays",
+  },
 ];
 
 function ReadBooksQuests() {
