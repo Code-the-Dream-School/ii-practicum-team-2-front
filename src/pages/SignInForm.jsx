@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useLogin } from "../hooks/useLogin";
 import { useForgotPassword } from "../hooks/useForgotPassword";
 import DOMPurify from "dompurify";
 import toast from "react-hot-toast";
+import { GoogleLogin } from "@react-oauth/google";
+
 const SignInForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,7 +12,7 @@ const SignInForm = () => {
   const [forgotMessage, setForgotMessage] = useState("");
   const [forgotError, setForgotError] = useState("");
   const [isForgotPassword, setIsForgotPassword] = useState(false);
-  const { login, isLoading: loginLoading, error: loginError } = useLogin();
+  const { login, isLoading: loginLoading, error: loginError, googleLogin } = useLogin();
   const { requestReset, isRequestLoading } = useForgotPassword({
     onSuccess: (message) => {
       setForgotMessage(message);
@@ -22,7 +23,7 @@ const SignInForm = () => {
       toast.error(errorMessage);
     },
   });
-  const navigate = useNavigate();
+
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -223,17 +224,18 @@ const SignInForm = () => {
             </div>
           </div>
           <div className="mt-4 flex justify-center">
-            <button
-              className="flex items-center justify-center w-full p-3 border border-gray-300 rounded-lg hover:bg-gray-100 transition"
-              disabled={loginLoading}
-            >
-              <img
-                src="https://www.google.com/favicon.ico"
-                alt="Google"
-                className="w-5 h-5 mr-2"
-              />
-              Google
-            </button>
+          <GoogleLogin
+              onSuccess={(credentialResponse) => {
+                const idToken = credentialResponse.credential;
+
+                if (idToken) {
+                  googleLogin(idToken);
+                }
+              }}
+              onError={() => {
+                console.error("Login Failed");
+              }}
+            />
           </div>
         </div>
       </div>
