@@ -9,8 +9,12 @@ export function useLogout() {
   const navigate = useNavigate();
 
   const logout = async () => {
+    const refresh_token = localStorage.getItem("refresh_token");
+  
     try {
-      const response = await api.post("/users/logout");
+      const response = await api.post("/users/logout", {
+        refresh_token,
+      });
       toast.success(response.data.message || "Logged out successfully");
       clearTokens();
       queryClient.removeQueries(["user"]);
